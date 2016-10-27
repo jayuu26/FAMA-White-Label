@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array
+        name="nav_icon">
+        <item>@drawable/nav_home_icon</item>
+        <item>@drawable/nav_cashback</item>
+        <item>@drawable/nav_giftcard</item>
+        <item>@drawable/nav_account</item>
+        <item>@drawable/nav_moneytransfer</item>
+        <item>@drawable/nav_transactionhistory</item>
+        <item>@drawable/nav_airtime</item>
+        <item>@drawable/nav_cheque_deposit</item>
+        <item>@drawable/nav_bills</item>
+        <item>@drawable/nav_settings</item>
+        <item>@drawable/nav_about</item>
+        <item>@drawable/nav_help</item>
+    </array>
+
+    <array
+        name="nav_sel_icon">
+        <item>@drawable/sel_home_icon</item>
+        <item>@drawable/sel_cashback</item>
+        <item>@drawable/sel_giftcard</item>
+        <item>@drawable/sel_account</item>
+        <item>@drawable/sel_moneytransfer</item>
+        <item>@drawable/sel_transactionhistory</item>
+        <item>@drawable/sel_airtime</item>
+        <item>@drawable/sel_cheque_deposit</item>
+        <item>@drawable/sel_bills</item>
+        <item>@drawable/sel_settings</item>
+        <item>@drawable/sel_about</item>
+        <item>@drawable/sel_help</item>
+    </array>
+
+    <array
+        name="home_grid_icon_opt1">
+        <item>@drawable/airtime</item>
+        <item>@drawable/deals</item>
+        <item>@drawable/locations</item>
+        <item>@drawable/funds_transfer</item>
+    </array>
+
+    <array
+        name="home_grid_sel_icon_opt1">
+        <item>@drawable/airtime_selected</item>
+        <item>@drawable/deals_selected</item>
+        <item>@drawable/locations_selected</item>
+        <item>@drawable/funds_selected</item>
+    </array>
+
+</resources>

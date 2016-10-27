@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "161720563737",
+    "firebase_url": "https://itunemusicapi.firebaseio.com",
+    "project_id": "itunemusicapi",
+    "storage_bucket": "itunemusicapi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:161720563737:android:0ad44489c90abefb",
+        "android_client_info": {
+          "package_name": "com.thunder.pay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "161720563737-emqhbrkl3v7e65lquisiovhrasl3t2dn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.thunder.pay",
+            "certificate_hash": "E668099281C10D0687747A8092D910C5F9CC2ECC"
+          }
+        },
+        {
+          "client_id": "161720563737-21eupjkbpsnrkcru77h803l2npcbipho.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAy8ivQFFBdQhYa6O-Su62Grb4ctXs182s"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "161720563737-21eupjkbpsnrkcru77h803l2npcbipho.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/nav_home_icon"
+            android:title="@string/home" />
+        <item
+            android:id="@+id/nav_cash_back"
+            android:icon="@drawable/nav_cashback"
+            android:title="@string/cash_back" />
+        <item
+            android:id="@+id/nav_gift_cards"
+            android:icon="@drawable/nav_giftcard"
+            android:title="@string/gift_cards" />
+
+        <item
+            android:id="@+id/nav_accounts"
+            android:icon="@drawable/nav_airtime"
+            android:title="@string/accounts" />
+
+        <item
+            android:id="@+id/nav_money_transfer"
+            android:icon="@drawable/nav_transactionhistory"
+            android:title="@string/money_transfer" />
+        <item
+            android:id="@+id/nav_transaction"
+            android:icon="@drawable/nav_transactionhistory"
+            android:title="@string/transaction_history" />
+        <item
+            android:id="@+id/nav_airtime"
+            android:icon="@drawable/nav_airtime"
+            android:title="@string/airtime_top_up" />
+        <item
+            android:id="@+id/nav_check_deposit"
+            android:icon="@drawable/nav_cheque_deposit"
+            android:title="@string/check_deposit" />
+        <item
+            android:id="@+id/nav_bills_payment"
+            android:icon="@drawable/nav_bills"
+            android:title="@string/bills_payment" />
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@drawable/settings"
+            android:title="@string/settings" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/nav_about"
+            android:title="@string/about" />
+        <item
+            android:id="@+id/nav_help"
+            android:icon="@drawable/nav_help"
+            android:title="@string/help" />
+    </group>
+
+</menu>

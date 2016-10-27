@@ -1,0 +1,237 @@
+<resources>
+    <string name="app_name">FAMA</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="banner_ad_unit_id">ca-app-pub-8092390816292193/9557892462</string>
+
+    <!-- Login Strings Starts -->
+    <string name="login_fields_required">Please enter Username or Password</string>
+    <string name="please_wait_login">Logging in, Please wait...</string>
+    <string name="please_connect_to_internet">Please connect to internet</string>
+    <string name="edittext_emailhint"><font size="14">Username</font></string>
+    <string name="edittext_passwordhint"><font size="14">Password</font></string>
+    <string name="login_text">LOGIN</string>
+    <!-- Login Strings Starts -->
+
+    <!-- Login Screen Strings -->
+    <string name="login">Login</string>
+    <string name="username_is_mandatory">Username is mandatory</string>
+    <string name="password_is_mandatory">Password is mandatory</string>
+    <string name="username_and_password_are_mandatory">Username and password are mandatory</string>
+    <string name="please_enter_valid_username_or_password">Please enter valid username or password</string>
+
+
+    <!-- Logout Messages  -->
+    <string name="logout_title">Confirm Logout</string>
+    <string name="logout_msg">Are you sure, you want to logout?</string>
+    <string name="yes">Yes</string>
+    <string name="logging_out">Logging out, Please wait...</string>
+    <string name="no">No</string>
+    <string name="logout_problem">There is some problem while logging out</string>
+
+
+    <!--Nav Drawer Strings-->
+    <string name="home">Home</string>
+    <string name="cash_back">Cash Back</string>
+    <string name="gift_cards">Gift Cards</string>
+    <string name="accounts">Accounts</string>
+    <string name="money_transfer">Money Transfer</string>
+    <string name="transaction_history">Transaction_histroy</string>
+    <string name="airtime_top_up">Airtime Top-Up</string>
+    <string name="check_deposit">Check Deposit</string>
+    <string name="bills_payment">Bills Payment</string>
+    <string name="settings">Settings</string>
+    <string name="about">About</string>
+    <string name="help">Help</string>
+
+    <string-array name="nav_items">
+        <item>Home</item>
+        <item>Cash Back</item>
+        <item>Gift Cards</item>
+        <item>Accounts</item>
+        <item>Money Transfer</item>
+        <item>Transaction Histroy</item>
+        <item>Airtime Top-Up</item>
+        <item>Check Deposit</item>
+        <item>Bills Payment</item>
+        <item>Settings</item>
+        <item>About</item>
+        <item>Help</item>
+    </string-array>
+
+    <!--Confirmation and success Message-->
+    <string name="beneficiary_confirm">Are you sure, Do you want to add this account in your Beneficiary ?</string>
+    <string name="beneficiary_success">Beneficiary added successfully.</string>
+
+    <string name="amount_confirm">Are you sure, you want to transfer this amount?</string>
+    <string name="amount_transfer_success">Amount is transferred to recipient.</string>
+
+    <string name="delete_beneficiary_acc_confirm">Are you sure, you want to delete this account?</string>
+    <string name="delete_beneficiary_acc_confirm_success">Account is deleted.</string>
+
+    <string name="add_acc_confirm">Do you want to add this account with FAMA user.</string>
+    <string name="add_acc_success">Account details added successfully.</string>
+
+    <string name="add_beneficiary_confirm">Are you sure, Do you want to add this account in your Beneficiary ?</string>
+    <string name="add_beneficiary_success">Beneficiary added successfully.</string>
+
+    <string name="add_wallet_amount_confirm">Do you want to add this amount in your FAMA Wallet.</string>
+    <string name="add_wallet_amount_success">Amount added successfully in your FAMA wallet.</string>
+
+    <!--Hint Messages-->
+    <string name="hint_enter_account_no">Enter Account Number</string>
+    <string name="hint_reenter_account_no">Re-Enter Account Number</string>
+    <string name="hint_enter_payee_acc_no">Enter Payee Account Number</string>
+    <string name="hint_enter_customer_id">Enter Customer Id</string>
+    <string name="hint_enter_password">Enter Password</string>
+    <string name="hint_enter_bank_name">Enter Bank Name</string>
+    <string name="hint_enter_bank_code">Enter Bank Code</string>
+    <string name="hint_enter_remark">Enter Remark</string>
+    <string name="hint_enter_amount">Enter Amount</string>
+    <string name="hint_enter_email">Enter Email Address</string>
+    <string name="hint_enter_beneficiary_name">Enter Beneficiary Name</string>
+
+    <!--Input Error Messages-->
+    <string name="error_transfer_amount">Transfer amount can not be greater than available balance</string>
+    <string name="error_enter_email_mismatch">Sender and Receiver email id should not be same.</string>
+    <string name="error_account_mismatch">Both the  Account Number should be same.</string>
+    <string name="error_enter_acc_no">Enter 16 Digit Account Number</string>
+    <string name="error_enter_amount">Enter Correct Amount</string>
+    <string name="error_enter_remark">Enter Remark</string>
+    <string name="error_enter_email">Enter Valid Email ID</string>
+    <string name="error_enter_beneficiary_name">Enter Beneficiary Name</string>
+    <string name="error_enter_beneficiary_acc_no">Enter Beneficiary\'s 16 Digit Account Number</string>
+    <string name="error_reenter_beneficiary_acc_no">Re-Enter Same Beneficiary\'s 16 Digit Account Number</string>
+    <string name="error_enter_customer_no">Enter 6 Digit Customer ID</string>
+    <string name="error_enter_bank_code">Enter Bank Code</string>
+    <string name="error_enter_password">Enter Minimum 8 Character Password</string>
+    <string name="error_select_bank_name">Select Bank Name</string>
+    <string name="error_select_branch_name">Select Branch Name.</string>
+    <string name="error_select_acc_no">Select Account Number</string>
+    <string name="error_select_payee_acc_no">Select Payee Account Number</string>
+    <string name="error_enter_payee_acc_no">Enter 16 Digit Payee\'s Account Number</string>
+    <string name="error_account_low_balance">You don\'t have sufficient balance in this account. Please select another account to make this transaction.</string>
+    <string name="error_wallet_low_balance">You don\'t have sufficient balance in your FAMA wallet. Please add money in your FAMA wallet to make more transaction.</string>
+    <!--Response Error Messages-->
+    <string name="error_fetch_list">Unable to download list from server.</string>
+
+
+    <!--Dialog Messages-->
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirmation">Confirmation</string>
+    <string name="confirm">Confirm</string>
+    <string name="exit">Exit</string>
+    <string name="error">Error!</string>
+
+    <string name="exit_app">Do you want exit from FAMA?</string>
+
+    <!--App Upgrade Strings-->
+    <string name="app_module_name">Android App</string>
+    <string name="network_error_msg">Please connect to internet</string>
+    <string name="app_availability_msg">New version of Siteforge Now is available. Do you want to download?</string>
+    <string name="alert_before_install">Please click \'Install\' button when security message is presented</string>
+
+    <string name="can_not_run">App needs all permissions to run. Closing now...</string>
+    <string name="download">Download</string>
+    <string name="not_now">Not now</string>
+
+
+    <string name="search_map">Search Map</string>
+
+    <string-array name="map_type_array">
+        <item>Normal</item>
+        <item>Satellite</item>
+        <item>Terrain</item>
+        <item>Hybrid</item>
+    </string-array>
+
+    <string name="info_window_site_name_na">Site Name: Not Available</string>
+    <string name="info_window_site_type_na">Site Type: Not Available</string>
+    <string name="info_window_site_address_na">Site Address: Not Available</string>
+    <string name="info_window_site_workspace_na">Site Workspace: Not Available</string>
+
+
+    <string name="info_window_bank_name">Bank Name :</string>
+    <string name="info_window_Add">Address :</string>
+    <string name="info_window_bank_code">Bank Code :</string>
+    <string name="info_window_description">Description :</string>
+    <string name="info_window_contact_number">Contact Number :</string>
+
+    <string name="error_title_min_characters">At least %1$d characters</string>
+    <string name="main_activity_explanation">Click the button to try it!</string>
+    <string name="main_activity_explanation_disclaimer">This app DOES NOT set up alarms for real!</string>
+
+
+    <string-array name="steps_recharge_wallet">
+        <item>Email Address</item>
+        <item>Amount</item>
+        <item>Description/Remarks</item>
+    </string-array>
+
+    <string-array name="steps_bank_to_wallet">
+        <item>Select Account Number</item>
+        <item>Available Balance</item>
+        <item>Receiver Email Address</item>
+        <item>Amount</item>
+        <item>Description/Remarks</item>
+    </string-array>
+
+    <string-array name="steps_w_to_bank">
+        <item>Sender Email Address</item>
+        <item>Available Balance</item>
+        <item>Receiver Account Number</item>
+        <item>Amount</item>
+        <item>Description/Remarks</item>
+    </string-array>
+
+    <string-array name="steps_w_to_w">
+        <item>Sender Email Address</item>
+        <item>Available Balance</item>
+        <item>Receiver Email Address</item>
+        <item>Amount</item>
+        <item>Description/Remarks</item>
+    </string-array>
+
+    <string-array name="steps_transfer_exist">
+        <item>Bank Account</item>
+        <item>Available Balance</item>
+        <item>Personal Payee</item>
+        <item>Amount</item>
+        <item>Description/Remarks</item>
+    </string-array>
+    <string-array name="steps_add_beneficiary">
+        <item>Bank Account</item>
+        <item>Beneficiary Name</item>
+        <item>Beneficiary Account No</item>
+        <item>Confirm Account No</item>
+        <item>Bank Code</item>
+    </string-array>
+    <string-array name="steps_add_account">
+        <item>Bank Name</item>
+        <item>Branch Name</item>
+        <item>Account Number</item>
+        <item>Customer Id</item>
+        <item>Password</item>
+    </string-array>
+
+    <string-array name="steps_subtitles">
+        <item>Title of the alarm</item>
+        <item>Description of the alarm</item>
+        <item>Time when the alarm will go off</item>
+        <item>Week schedule of the alarm</item>
+    </string-array>
+    <string-array name="week_days">
+        <item>M</item>
+        <item>T</item>
+        <item>W</item>
+        <item>T</item>
+        <item>F</item>
+        <item>S</item>
+        <item>S</item>
+    </string-array>
+
+</resources>

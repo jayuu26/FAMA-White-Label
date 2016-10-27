@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="180dp"
+    android:background="@drawable/sidemenu_bg"
+    android:orientation="vertical">
+
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/userProfileImage"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="35dp"
+        android:visibility="visible"
+        app:civ_border_color="#FF000000"
+        app:civ_border_width="0dp" />
+
+
+    <RelativeLayout
+        android:id="@+id/drawer_profile_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="28dp"
+        android:layout_below="@id/userProfileImage"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/tvuserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="Jyaesh Verma"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/text_color_white"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/tvUserEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvuserName"
+            android:text="jayesh.verma@gmail.com"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/text_color_white"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/dropdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tvUserEmail"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/tvuserName"
+            android:layout_marginRight="10dp"
+            android:onClick="onDropdownClick"
+            android:src="@drawable/dropdown_1"
+            android:tint="@android:color/white" />
+
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="appbg">#F4F6FA</color>
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="tabsScrollColor">#8a140e</color>
+    <color name="themecolor">#023CA6</color>
+
+    <string-array name="refresh_dialog">
+        <item>#24c6d5</item>
+        <item>#57dd86</item>
+        <item>#ad7dcf</item>
+        <item>#ff484d</item>
+        <item>#fcba59</item>
+        <item>#24c6d5</item>
+    </string-array>
+
+    <color name="gray_heading">#8f8f8f</color>
+    <color name="toolbarColor">#2196F3</color>
+    <color name="headerColor">#2196F3</color>
+    <color name="footerColor">#2196F3</color>
+
+    <color name="black_light_Color">#4A4A4A</color>
+    <color name="textColorHint">#FFFFFF</color>
+    <color name="colorControlNormal">#FFFFFF</color>
+    <color name="colorControlActivated">#000000</color>
+
+    <color name="layout_bg_color">#E4E9EC</color>
+    <color name="status_red_color">#F8494D</color>
+    <color name="status_sky_blue_color">#52B2F5</color>
+    <color name="status_orange_color">#FFA72A</color>
+    <color name="bg_green_color">#84CA46</color>
+    <color name="bg_brown_color">#8E6D63</color>
+    <color name="text_color_white">#ffffff</color>
+    <color name="login_text_hint_white">#4e8ab9</color>
+
+    <color name="list_header_text_color">#9B9B9B</color>
+    <color name="header_sky_blue_color">#0091F2</color>
+    <color name="list_item_text_color">#373737</color>
+    <color name="add_issues_text_color">#949599</color>
+    <color name="issue_details_heading_color">#9B9B9B</color>
+    <color name="ColorPrimary">#00897B</color>
+    <color name="ColorPrimaryDark">#00695C</color>
+    <color name="refresh_row_color">#999999</color>
+
+    <color name="sky_blue">#2298f2</color>
+    <color name="gray">#757575</color>
+    <color name="darkblue_next">#2694d4</color>
+    <color name="lightblue_previous">#40a9f5</color>
+    <color name="colorAcent">#3fa9f5</color>
+
+    <color name="closed_color">#c3c4c7</color>
+    <color name="open_color">#3fafeb</color>
+    <color name="parked_color">#ffc014</color>
+    <color name="new_color">#bf282b</color>
+    <color name="resolved_color">#7fc248</color>
+    <color name="stacked_bar_chart_description_text_color">#666666</color>
+    <color name="stacked_bar_chart_x_axis_text_color">#4d4d4d</color>
+    <color name="stacked_bar_chart_y_axis_text_color">#4d4d4d</color>
+    <color name="stacked_bar_chart_line_color">#f0f0f0</color>
+
+    <color name="donut_chart_theft_color">#ed3f39</color>
+    <color name="donut_chart_owner_color">#35c5db</color>
+    <color name="donut_chart_access_color">#632e8f</color>
+    <color name="donut_chart_others_color">#baa8a2</color>
+
+    <color name="light_sky_blue">#2980b9</color>
+    <color name="light_grey">#d3d3d3</color>
+    <color name="dark_black">#000</color>
+    <color name="light_black">#212121</color>
+
+    <color name="base">#FFFFFB</color>
+    <color name="overlay">#AA1C1C1C</color>
+    <color name="handle">#86C166</color>
+    <color name="frame">#86C166</color>
+    <color name="guide">#AA86C166</color>
+    <color name="ripple_color">#1369a9</color>
+
+
+    <color name="checkBoxActivate">#84CA46</color>
+    <color name="checkBoxNormal">#ffffff</color>
+    <color name="text_color">#595959</color>
+    <color name="darkgray">#5D6773</color>
+    <color name="gray_bg">#999966</color>
+    <color name="dialog_header_blue">#0071bd</color>
+    <color name="waterBlue">#40a4df</color>
+    <color name="spinner_base_color">#44000000</color>
+    <color name="item_text_color">#000000</color>
+</resources>
