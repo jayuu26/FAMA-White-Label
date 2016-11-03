@@ -139,7 +139,7 @@ public class BanknToBkashFragment extends Fragment implements VerticalStepperFor
                 }
             });
         }
-        AppUtills.setActionBarTitle("Transfer New", ((AppCompatActivity) getActivity()).getSupportActionBar(), getActivity(), true);
+        AppUtills.setActionBarTitle("Bank2Bkash Transfer", ((AppCompatActivity) getActivity()).getSupportActionBar(), getActivity(), true);
 
         return mainView;
 //        return inflater.inflate(R.layout.about, null);

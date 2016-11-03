@@ -121,7 +121,7 @@ public class AccountsFragment extends Fragment {
     private void setupViewPager(ViewPager viewPager) {
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-        adapter.addFrag(MyAccountFragment.Single.INSTANCE.getInstance(), "View Account");
+        adapter.addFrag(MyAccountFragment.Single.INSTANCE.getInstance(), "My Account");
         adapter.addFrag(ManageBeneficaryFragment.Single.INSTANCE.getInstance(), "View Beneficiary");
         viewPager.setAdapter(adapter);
     }
