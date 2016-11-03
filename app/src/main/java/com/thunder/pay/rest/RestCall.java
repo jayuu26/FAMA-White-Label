@@ -128,6 +128,12 @@ public interface RestCall {
     /**
      * PUT BKASH
      */
+    @GET("rest/FamaWallet/findWalletByUserEmail/{email_param}")
+    Call<ResponseBody> findWalletByUserEmail(@Path("email_param") String emailID);
+
+    /**
+     * PUT BKASH
+     */
     @PUT("rest/FamaWallet/walletToBkashMoneyTransfer/")
     Call<ResponseBody> walletToBkashTransfer(@Body TransferDetails transferDetails);
 

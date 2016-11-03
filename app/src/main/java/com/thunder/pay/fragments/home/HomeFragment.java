@@ -1,5 +1,6 @@
 package com.thunder.pay.fragments.home;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,19 +13,35 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.thunder.pay.R;
 import com.thunder.pay.adapter.commonadaptter.HomeListGridAdapter;
+import com.thunder.pay.constant.MessageConstant;
 import com.thunder.pay.daomodel.DataHandler;
 import com.thunder.pay.fragments.account.AccountsFragment;
 import com.thunder.pay.fragments.banklocation.LocationFragment;
 import com.thunder.pay.fragments.common.CommonAccountsFragment;
 import com.thunder.pay.fragments.moneytransfer.MoneyTransferFragment;
 import com.thunder.pay.fragments.moneytransfer.wallettransfer.AddAmountToWalletFragment;
+import com.thunder.pay.greendaodb.ErrorModel;
 import com.thunder.pay.greendaodb.FAMA;
 import com.thunder.pay.greendaodb.Inventory;
+import com.thunder.pay.greendaodb.TransferDetails;
+import com.thunder.pay.rest.RestCall;
+import com.thunder.pay.rest.RestClient;
 import com.thunder.pay.util.AppUtills;
 import com.thunder.pay.util.DateUtils;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeFragment extends Fragment implements HomeListGridAdapter.OnClickListner {
 
@@ -52,8 +69,7 @@ public class HomeFragment extends Fragment implements HomeListGridAdapter.OnClic
         super.setMenuVisibility(menuVisible);
         if(menuVisible){
 
-            //refresh();
-
+            requestToServer();
         }
     }
 
@@ -106,7 +122,8 @@ public class HomeFragment extends Fragment implements HomeListGridAdapter.OnClic
         if(inventory.getFamaWallet()!=null)
             fama_current_amount.setText(""+inventory.getFamaWallet().getCurrentAmount()+""+inventory.getFamaWallet().getCurrencyCode());
 
-        refresh();
+//        refresh();
+        requestToServer();
         HomeListGridAdapter rcAdapter = new HomeListGridAdapter(mContext, null, this);
         myRecyclerView.setAdapter(rcAdapter);
     }
@@ -139,6 +156,64 @@ public class HomeFragment extends Fragment implements HomeListGridAdapter.OnClic
 
         if(fama!=null)
             fama_current_amount.setText(""+fama.getCurrentAmount()+""+fama.getCurrencyCode());
+
+    }
+
+    private void requestToServer() {
+
+        RestCall service = RestClient.Single.INSTANCE.getInstance().getRestCallsConnection(mContext);
+
+        if (AppUtills.isNetworkAvailable(mContext)) {
+            final ProgressDialog dialog = AppUtills.showProgressDialog(getActivity());
+            final Call<ResponseBody> response = service.findWalletByUserEmail(inventory.getEmail());
+            response.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        if (response.code() == HttpURLConnection.HTTP_OK) {
+                            String json = "";
+                            if (response != null)
+                                json = response.body().string();
+                            System.out.println("sendDataToServer onResponse " + json);
+
+                            if (json.contains("errorMsg")) {
+                                try {
+                                    ErrorModel errorModel = new ErrorModel();
+                                    errorModel = new Gson().fromJson(json, ErrorModel.class);
+                                    AppUtills.showErrorPopUpBack(getActivity(),""+errorModel.getErrorMsg());
+                                } catch (JsonSyntaxException e) {
+                                    e.printStackTrace();
+                                    Toast.makeText(mContext, "" + MessageConstant.GENERIC_ERROR, Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                try {
+                                    FAMA famaWallet = new Gson().fromJson(json, FAMA.class);
+                                    DataHandler.Single.INSTANCE.getInstance().setFamaWallet(famaWallet);
+                                    refresh();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    Toast.makeText(mContext, "" + MessageConstant.GENERIC_ERROR, Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }else{
+                            Toast.makeText(mContext, "" + MessageConstant.GENERIC_ERROR, Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Toast.makeText(mContext, "" + MessageConstant.GENERIC_ERROR, Toast.LENGTH_SHORT).show();
+                    }
+                    AppUtills.cancelProgressDialog(dialog);
+
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    AppUtills.cancelProgressDialog(dialog);
+                    Toast.makeText(mContext, "" + MessageConstant.GENERIC_ERROR, Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
 
     }
 }
