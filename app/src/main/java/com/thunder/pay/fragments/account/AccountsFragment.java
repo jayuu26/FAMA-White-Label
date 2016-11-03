@@ -16,9 +16,7 @@ import com.thunder.pay.R;
 import com.thunder.pay.adapter.commonadaptter.ViewPagerAdapter;
 import com.thunder.pay.customlayout.SlidingTabLayout;
 import com.thunder.pay.fragments.account.managebeneficiary.ManageBeneficaryFragment;
-import com.thunder.pay.fragments.account.viewaccount.ViewAccountFragment;
-import com.thunder.pay.fragments.moneytransfer.banktransfer.BankTransferFragment;
-import com.thunder.pay.fragments.moneytransfer.wallettransfer.WalletTransferFragment;
+import com.thunder.pay.fragments.account.myaccount.MyAccountFragment;
 import com.thunder.pay.util.AppUtills;
 
 
@@ -123,7 +121,7 @@ public class AccountsFragment extends Fragment {
     private void setupViewPager(ViewPager viewPager) {
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-        adapter.addFrag(ViewAccountFragment.Single.INSTANCE.getInstance(), "View Account");
+        adapter.addFrag(MyAccountFragment.Single.INSTANCE.getInstance(), "View Account");
         adapter.addFrag(ManageBeneficaryFragment.Single.INSTANCE.getInstance(), "View Beneficiary");
         viewPager.setAdapter(adapter);
     }

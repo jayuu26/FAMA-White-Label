@@ -116,7 +116,20 @@ public interface RestCall {
     Call<ResponseBody> bankToBankMoneyTransfer(@Body TransferDetails transferDetails);
 
 
+    /**
+     * PUT BKASH
+     */
+    @PUT("rest/AccountDetail/bankToBkashMoneyTransfer/")
+    Call<ResponseBody> bankToBkashTransfer(@Body TransferDetails transferDetails);
+
+
 /************* FAMA Wallet *************/
+
+    /**
+     * PUT BKASH
+     */
+    @PUT("rest/FamaWallet/walletToBkashMoneyTransfer/")
+    Call<ResponseBody> walletToBkashTransfer(@Body TransferDetails transferDetails);
 
 
     /**

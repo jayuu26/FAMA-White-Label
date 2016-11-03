@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity
 
         // Adding child data
         List<String> account= new ArrayList<String>();
-        account.add("View Account");
+        account.add("My Account");
         account.add("Manage Beneficiary");
 
         List<String> transfer= new ArrayList<String>();

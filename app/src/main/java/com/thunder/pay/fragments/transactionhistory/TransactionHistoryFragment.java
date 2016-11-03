@@ -12,13 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 import com.thunder.pay.Listener.PageSelectedListener;
 import com.thunder.pay.R;
 import com.thunder.pay.adapter.commonadaptter.ViewPagerAdapter;
 import com.thunder.pay.customlayout.SlidingTabLayout;
-import com.thunder.pay.fragments.account.managebeneficiary.ManageBeneficaryFragment;
-import com.thunder.pay.fragments.account.viewaccount.ViewAccountFragment;
 import com.thunder.pay.fragments.transactionhistory.bankhistory.BankHistoryFragment;
 import com.thunder.pay.fragments.transactionhistory.wallethistory.WalletHistoryFragment;
 import com.thunder.pay.util.AppUtills;

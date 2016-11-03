@@ -1,4 +1,4 @@
-package com.thunder.pay.fragments.moneytransfer.wallettransfer;
+package com.thunder.pay.fragments.moneytransfer.bkashtransfer;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -20,23 +20,27 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import com.thunder.pay.R;
+import com.thunder.pay.adapter.commonadaptter.MyCustomAdapter;
 import com.thunder.pay.constant.MessageConstant;
-import com.thunder.pay.daomodel.DataHandler;
+import com.thunder.pay.customlayout.NDSpinner;
+import com.thunder.pay.dbhelper.InventoryDBHelper;
 import com.thunder.pay.greendaodb.AdBeneficiaryDetails;
 import com.thunder.pay.greendaodb.BankDetail;
 import com.thunder.pay.greendaodb.ErrorModel;
-import com.thunder.pay.greendaodb.FAMA;
 import com.thunder.pay.greendaodb.Inventory;
 import com.thunder.pay.greendaodb.TransferDetails;
 import com.thunder.pay.rest.RestCall;
@@ -45,9 +49,11 @@ import com.thunder.pay.util.AppUtills;
 import com.thunder.pay.util.ErrorUtills;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import ernestoyaquello.com.verticalstepperform.VerticalStepperFormLayout;
 import ernestoyaquello.com.verticalstepperform.fragments.BackConfirmationFragment;
@@ -57,7 +63,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class WalletToWalletTransferFragment extends Fragment implements VerticalStepperForm {
+public class BanknToBkashFragment extends Fragment implements VerticalStepperForm {
 
     Context mContext;
     public static final String NEW_BENEFICIARY_ADDED = "new_beneficiary_added";
@@ -67,21 +73,21 @@ public class WalletToWalletTransferFragment extends Fragment implements Vertical
     BankDetail bankDetail = new BankDetail();
 
     // Information about the steps/fields of the form
-    private static final int SENDER_EMAIL_STEP_NUM = 0;
+    private static final int BANK_ACC_NO_STEP_NUM = 0;
     private static final int AVAILABLE_BALANCE_STEP_NUM = 1;
-    private static final int RECEIVER_EMAIL_STEP_NUME = 2;
+    private static final int RECEIVER_BKASH_ACC_NO_STEP_NUM = 2;
     private static final int AMOUNT_STEP_NUM = 3;
     private static final int REMARK_STEP_NUM = 4;
 
-    public String SENDER_EMAIL;
+    public String ACC_NUMBER;
     public String BALANCE;
-    public String RECIEVER_EMAIL;
+    public String RECIEVER_BKASH_ACC_NO;
     public String AMOUNT;
     public String REMARK;
 
-    private EditText senderEmail;
-    private EditText availBalance;
-    private EditText recieverEmail;
+    private Spinner spinnerAccNo;
+    private EditText recieverBkashAccNo;
+    private EditText balance;
     private EditText amount;
     private EditText remark;
 
@@ -100,16 +106,15 @@ public class WalletToWalletTransferFragment extends Fragment implements Vertical
 
     private boolean confirmBack = true;
     private VerticalStepperFormLayout verticalStepperForm;
-    Inventory inventory;
 
     CheckBox checkTerms;
 
     public enum Single {
         INSTANCE;
-        WalletToWalletTransferFragment s = new WalletToWalletTransferFragment();
+        BanknToBkashFragment s = new BanknToBkashFragment();
 
-        public WalletToWalletTransferFragment getInstance() {
-            return new WalletToWalletTransferFragment();
+        public BanknToBkashFragment getInstance() {
+            return new BanknToBkashFragment();
 //            if (s == null)
 //                return new AddBeneficiaryFragment();
 //            else return s;
@@ -134,7 +139,7 @@ public class WalletToWalletTransferFragment extends Fragment implements Vertical
                 }
             });
         }
-        AppUtills.setActionBarTitle("W2W Transfer", ((AppCompatActivity) getActivity()).getSupportActionBar(), getActivity(), true);
+        AppUtills.setActionBarTitle("Transfer New", ((AppCompatActivity) getActivity()).getSupportActionBar(), getActivity(), true);
 
         return mainView;
 //        return inflater.inflate(R.layout.about, null);
@@ -143,14 +148,10 @@ public class WalletToWalletTransferFragment extends Fragment implements Vertical
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-          inventory = DataHandler.Single.INSTANCE.getInstance().getInventory();//InventoryDBHelper.single.INSTANCE.getInstnce().getItemList(getActivity(), "");
-        try {
-            SENDER_EMAIL = inventory.getEmail();
-            BALANCE = inventory.getFamaWallet().getCurrentAmount();
-        } catch (Exception e) {
-            e.printStackTrace();
+        Inventory inventory = InventoryDBHelper.single.INSTANCE.getInstnce().getItemList(getActivity(), "");
+        if (inventory != null) {
+            loadBankList("" + inventory.getUserid());
         }
-
         initializeActivity(view);
     }
 
@@ -163,7 +164,7 @@ public class WalletToWalletTransferFragment extends Fragment implements Vertical
 
         int colorPrimary = ContextCompat.getColor(mContext, R.color.colorPrimary);
         int colorPrimaryDark = ContextCompat.getColor(mContext, R.color.colorPrimaryDark);
-        String[] stepsTitles = getResources().getStringArray(R.array.steps_w_to_w);
+        String[] stepsTitles = getResources().getStringArray(R.array.steps_bank_to_bkash);
 
         // Here we find and initialize the form
         verticalStepperForm = (VerticalStepperFormLayout) view.findViewById(R.id.vertical_stepper_form);
@@ -188,14 +189,14 @@ public class WalletToWalletTransferFragment extends Fragment implements Vertical
         // automatically added to the step layout (AKA stepContent)
         View view = null;
         switch (stepNumber) {
-            case SENDER_EMAIL_STEP_NUM:
-                view = createSenderEmail();
+            case BANK_ACC_NO_STEP_NUM:
+                view = createBankAccountSpinner();
                 break;
             case AVAILABLE_BALANCE_STEP_NUM:
                 view = createBalance();
                 break;
-            case RECEIVER_EMAIL_STEP_NUME:
-                view = createRecieverEmail();
+            case RECEIVER_BKASH_ACC_NO_STEP_NUM:
+                view = createPayeeAccount();
                 break;
             case AMOUNT_STEP_NUM:
                 view = createAmount();
@@ -210,15 +211,14 @@ public class WalletToWalletTransferFragment extends Fragment implements Vertical
     @Override
     public void onStepOpening(int stepNumber) {
         switch (stepNumber) {
-            case SENDER_EMAIL_STEP_NUM:
-//                if (ErrorUtills.emailValidation(SENDER_EMAIL)) {
-//                    verticalStepperForm.setActiveStepAsCompleted();
-//                } else {
-//                    verticalStepperForm.setActiveStepAsUncompleted(
-//                            mContext.getResources().getString(R.string.error_select_acc_no));
-//                }
-                verticalStepperForm.setStepAsCompleted(stepNumber);
-                verticalStepperForm.setStepSubtitle(stepNumber,""+SENDER_EMAIL);
+            case BANK_ACC_NO_STEP_NUM:
+                if (ErrorUtills.isSpinnerValid(spinnerAccNo)) {
+//                    verticalStepperForm.setStepSubtitle(stepNumber, "" + SENDER_EMAIL);
+                    verticalStepperForm.setActiveStepAsCompleted();
+                } else {
+                    verticalStepperForm.setActiveStepAsUncompleted(
+                            mContext.getResources().getString(R.string.error_select_acc_no));
+                }
                 break;
             case AVAILABLE_BALANCE_STEP_NUM:
 //                if (ErrorUtills.checkTextNull(BALANCE)) {
@@ -227,17 +227,15 @@ public class WalletToWalletTransferFragment extends Fragment implements Vertical
 //                } else {
 //                    verticalStepperForm.setActiveStepAsUncompleted("Low Balance");
 //                }
-                checkAvailableBalance();
-//                verticalStepperForm.setStepAsCompleted(stepNumber);
-//                verticalStepperForm.setStepSubtitle(stepNumber,""+ BALANCE);
+                verticalStepperForm.setStepAsCompleted(stepNumber);
                 break;
-            case RECEIVER_EMAIL_STEP_NUME:
-                if (ErrorUtills.emailValidation(RECIEVER_EMAIL)) {
-                    verticalStepperForm.setStepSubtitle(stepNumber, "" + RECIEVER_EMAIL);
+            case RECEIVER_BKASH_ACC_NO_STEP_NUM:
+                if (ErrorUtills.checkTextMinLength(RECIEVER_BKASH_ACC_NO, 16)) {
+                    verticalStepperForm.setStepSubtitle(stepNumber, "" + RECIEVER_BKASH_ACC_NO);
                     verticalStepperForm.setStepAsCompleted(stepNumber);
                 } else {
                     verticalStepperForm.setActiveStepAsUncompleted(
-                            mContext.getResources().getString(R.string.error_enter_email));
+                            mContext.getResources().getString(R.string.error_enter_payee_acc_no));
                 }
                 break;
             case AMOUNT_STEP_NUM:
@@ -269,9 +267,10 @@ public class WalletToWalletTransferFragment extends Fragment implements Vertical
 
     private void initDataVar() {
         try {
-            SENDER_EMAIL = senderEmail.getText().toString().trim();
-            BALANCE = availBalance.getText().toString().trim();
-            RECIEVER_EMAIL = recieverEmail.getText().toString().trim();
+            if(accountNoList !=null && accountNoList.size()>0)
+                ACC_NUMBER = accountNoList.get(spinnerAccNo.getSelectedItemPosition()).getAccountNumber().trim();
+            BALANCE = balance.getText().toString().trim();
+            RECIEVER_BKASH_ACC_NO = recieverBkashAccNo.getText().toString().trim();
             AMOUNT = amount.getText().toString().trim();
             REMARK = remark.getText().toString().trim();
         } catch (Exception e) {
@@ -288,91 +287,72 @@ public class WalletToWalletTransferFragment extends Fragment implements Vertical
             TransferDetails transferDetails = new TransferDetails();
             transferDetails.setAmount(AMOUNT);
             transferDetails.setComment(REMARK);
-            transferDetails.setReceiverWalletEmail(RECIEVER_EMAIL);
-            transferDetails.setSenderWalletEmail(SENDER_EMAIL);
+            transferDetails.setReceiverBkash(RECIEVER_BKASH_ACC_NO);
+            transferDetails.setSenderBankAccountNumber(ACC_NUMBER);
             System.out.println(" FInal JSON " + new Gson().toJson(transferDetails));
 
-            confirmTransfer(transferDetails);
+            confirmAdd(transferDetails);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-    private View createSenderEmail() {
-        senderEmail = new EditText(mContext);
-        senderEmail.setHint(R.string.hint_enter_payee_acc_no);
-        senderEmail.setEnabled(false);
-        senderEmail.setSingleLine(true);
-        senderEmail.setInputType(InputType.TYPE_CLASS_NUMBER);
-        senderEmail.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                verticalStepperForm.goToNextStep();
-                return false;
-            }
-        });
-        ErrorUtills.setEditTextLimit(senderEmail, 30);
-        senderEmail.setText(""+inventory.getEmail());
-//        verticalStepperForm.setStepAsCompleted(SENDER_EMAIL_STEP_NUM);
-//        verticalStepperForm.goToNextStep();
-        senderEmail.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+    // OTHER METHODS USED TO MAKE THIS EXAMPLE WORK
 
+
+    private View createBankAccountSpinner() {
+        spinnerAccNo = new NDSpinner(mContext);
+        MyCustomAdapter adapter = new MyCustomAdapter(getActivity(), accountNoList, "Account");
+        if (accountNoList != null)
+            spinnerAccNo.setAdapter(adapter);
+        spinnerAccNo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (ErrorUtills.emailValidation(s.toString())) {
-                    verticalStepperForm.setStepSubtitle(SENDER_EMAIL_STEP_NUM, "" + s.toString());
-                    verticalStepperForm.setStepAsCompleted(SENDER_EMAIL_STEP_NUM);
-                    RECIEVER_EMAIL = s.toString();
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position > 0) {
+                    ACC_NUMBER = accountNoList.get(position).getAccountNumber();
+                    verticalStepperForm.setStepSubtitle(BANK_ACC_NO_STEP_NUM, "" + ACC_NUMBER);
+                    checkAvailableBalance(position);
                 } else {
                     verticalStepperForm.setActiveStepAsUncompleted(
-                            mContext.getResources().getString(R.string.error_enter_email));
+                            mContext.getResources().getString(R.string.error_select_acc_no));
                 }
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
+            public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
-        return senderEmail;
+        return spinnerAccNo;
     }
 
-    private View createRecieverEmail() {
-        recieverEmail = new EditText(mContext);
-        recieverEmail.setHint(R.string.hint_enter_email);
-        recieverEmail.setSingleLine(true);
-        recieverEmail.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+    private View createPayeeAccount() {
+        recieverBkashAccNo = new EditText(mContext);
+        recieverBkashAccNo.setHint(R.string.hint_enter_payee_acc_no);
+        recieverBkashAccNo.setSingleLine(true);
+        recieverBkashAccNo.setInputType(InputType.TYPE_CLASS_NUMBER);
+        recieverBkashAccNo.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 verticalStepperForm.goToNextStep();
                 return false;
             }
         });
-        ErrorUtills.setEditTextLimit(recieverEmail, 30);
-        recieverEmail.addTextChangedListener(new TextWatcher() {
+        ErrorUtills.setEditTextLimit(recieverBkashAccNo, 16);
+        recieverBkashAccNo.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (ErrorUtills.emailValidation(s.toString())) {
-                    if(!SENDER_EMAIL.equalsIgnoreCase(s.toString()))
-                    {
-                        verticalStepperForm.setStepSubtitle(RECEIVER_EMAIL_STEP_NUME, "" + s.toString());
-                        verticalStepperForm.setStepAsCompleted(RECEIVER_EMAIL_STEP_NUME);
-                        RECIEVER_EMAIL = s.toString();
-                    }else{
-                        verticalStepperForm.setActiveStepAsUncompleted(
-                                mContext.getResources().getString(R.string.error_enter_email_mismatch));
-                    }
+                if (ErrorUtills.checkTextMinLength(s.toString(), 16)) {
+                    verticalStepperForm.setStepSubtitle(RECEIVER_BKASH_ACC_NO_STEP_NUM, "" + s.toString());
+                    verticalStepperForm.setStepAsCompleted(RECEIVER_BKASH_ACC_NO_STEP_NUM);
+                    RECIEVER_BKASH_ACC_NO = s.toString();
                 } else {
                     verticalStepperForm.setActiveStepAsUncompleted(
-                            mContext.getResources().getString(R.string.error_enter_email));
+                            mContext.getResources().getString(R.string.error_enter_payee_acc_no));
                 }
             }
 
@@ -381,7 +361,7 @@ public class WalletToWalletTransferFragment extends Fragment implements Vertical
             }
         });
 
-        return recieverEmail;
+        return recieverBkashAccNo;
     }
 
     private View createAmount() {
@@ -409,6 +389,7 @@ public class WalletToWalletTransferFragment extends Fragment implements Vertical
 
                 if (ErrorUtills.checkTextNull(s.toString())) {
                     checkTransferAmount(s.toString(),AMOUNT_STEP_NUM);
+
                 } else {
                     verticalStepperForm.setActiveStepAsUncompleted(
                             mContext.getResources().getString(R.string.error_enter_amount));
@@ -466,20 +447,20 @@ public class WalletToWalletTransferFragment extends Fragment implements Vertical
     }
 
     private View createBalance() {
-        availBalance = new EditText(mContext);
-        availBalance.setHint(R.string.hint_enter_amount);
-        availBalance.setSingleLine(true);
-        availBalance.setInputType(InputType.TYPE_CLASS_NUMBER);
-        availBalance.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        balance = new EditText(mContext);
+        balance.setHint(R.string.hint_enter_bank_code);
+        balance.setSingleLine(true);
+        balance.setInputType(InputType.TYPE_CLASS_NUMBER);
+        balance.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 verticalStepperForm.goToNextStep();
                 return false;
             }
         });
-        availBalance.setEnabled(false);
-        ErrorUtills.setEditTextLimit(availBalance, 50);
-        availBalance.addTextChangedListener(new TextWatcher() {
+        balance.setEnabled(false);
+        ErrorUtills.setEditTextLimit(balance, 50);
+        balance.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -499,7 +480,8 @@ public class WalletToWalletTransferFragment extends Fragment implements Vertical
             public void afterTextChanged(Editable s) {
             }
         });
-        return availBalance;
+
+        return balance;
     }
 
     private View createDateTimeStep() {
@@ -546,12 +528,12 @@ public class WalletToWalletTransferFragment extends Fragment implements Vertical
         if (title.length() >= 1) {
             titleIsCorrect = true;
             verticalStepperForm.setActiveStepAsCompleted();
-            // Equivalent to: verticalStepperForm.setStepAsCompleted(SENDER_EMAIL_STEP_NUM);
+            // Equivalent to: verticalStepperForm.setStepAsCompleted(BANK_ACC_NO_STEP_NUM);
         } else {
             String titleErrorString = getResources().getString(R.string.error_title_min_characters);
             String titleError = String.format(titleErrorString, 1);
             verticalStepperForm.setActiveStepAsUncompleted(titleError);
-            // Equivalent to: verticalStepperForm.setStepAsUncompleted(SENDER_EMAIL_STEP_NUM, titleError);
+            // Equivalent to: verticalStepperForm.setStepAsUncompleted(BANK_ACC_NO_STEP_NUM, titleError);
         }
         return titleIsCorrect;
     }
@@ -599,8 +581,69 @@ public class WalletToWalletTransferFragment extends Fragment implements Vertical
         return false;
     }
 
+    private void loadBankList(String userId) {
 
-    private void confirmTransfer(final TransferDetails transferDetails) {
+        RestCall service = RestClient.Single.INSTANCE.getInstance().getRestCallsConnection(mContext);
+        final Type listType = new TypeToken<List<BankDetail>>() {
+        }.getType();
+
+        if (AppUtills.isNetworkAvailable(mContext)) {
+            final ProgressDialog dialog = AppUtills.showProgressDialog(getActivity());
+
+            final Call<ResponseBody> repos = service.getAccountDetailByUserId(userId);
+
+            repos.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    accountNoList.removeAll(accountNoList);
+                    bankDetail.setAccountNumber("Please Select");
+                    accountNoList.add(0, bankDetail);
+                    if (response.code() == HttpURLConnection.HTTP_OK) {
+                        try {
+                            String json = "";
+                            if (response != null) json = response.body().string();
+                            System.out.println("onResponse " + json);
+
+                            if (json.contains("errorMsg")) {
+                                try {
+                                    ErrorModel errorModel = new ErrorModel();
+                                    errorModel = new Gson().fromJson(json, ErrorModel.class);
+                                    AppUtills.showErrorPopUpBack(getActivity(),""+errorModel.getErrorMsg());
+                                } catch (JsonSyntaxException e) {
+                                    e.printStackTrace();
+                                    AppUtills.showErrorPopUpBack(getActivity(),""+mContext.getResources().getString(R.string.error_fetch_list));
+                                }
+                            } else {
+                                List<BankDetail> bankDatas = new Gson().fromJson(json, listType);
+                                accountNoList.addAll(bankDatas);
+                                MyCustomAdapter adapter = new MyCustomAdapter(getActivity(), accountNoList, "Account");
+                                adapter.notifyDataSetChanged();
+                                spinnerAccNo.setAdapter(adapter);
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            AppUtills.showErrorPopUpBack(getActivity(),""+mContext.getResources().getString(R.string.error_fetch_list));
+                        }
+                    } else {
+                        AppUtills.showErrorPopUpBack(getActivity(),""+mContext.getResources().getString(R.string.error_fetch_list));
+                    }
+                    AppUtills.cancelProgressDialog(dialog);
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    AppUtills.cancelProgressDialog(dialog);
+                    AppUtills.showErrorPopUpBack(getActivity(),""+mContext.getResources().getString(R.string.error_fetch_list));
+                }
+            });
+
+
+        }
+    }
+
+
+
+    private void confirmAdd(final TransferDetails transferDetails) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext, R.style.MyDialogTheme);
         builder.setTitle(mContext.getResources().getString(R.string.confirmation));
@@ -636,7 +679,7 @@ public class WalletToWalletTransferFragment extends Fragment implements Vertical
 
         if (AppUtills.isNetworkAvailable(mContext)) {
             final ProgressDialog dialog = AppUtills.showProgressDialog(getActivity());
-            final Call<ResponseBody> response = service.walletToWalletMoneyTransfer(transferDetails);
+            final Call<ResponseBody> response = service.bankToBkashTransfer(transferDetails);
             response.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -657,12 +700,11 @@ public class WalletToWalletTransferFragment extends Fragment implements Vertical
                                     Toast.makeText(mContext, "" + MessageConstant.GENERIC_ERROR, Toast.LENGTH_SHORT).show();
                                     verticalStepperForm.goToPreviousStep();
                                 }
-                                } else {
+                            } else {
                                 try {
-                                    FAMA famaWallet = new Gson().fromJson(json, FAMA.class);
-                                    DataHandler.Single.INSTANCE.getInstance().setFamaWallet(famaWallet);
-                                    FAMA fama1 = DataHandler.Single.INSTANCE.getInstance().getFamaWallet();
-                                    Toast.makeText(mContext, mContext.getResources().getString(R.string.amount_transfer_success), Toast.LENGTH_LONG).show();
+                                    AdBeneficiaryDetails details = new AdBeneficiaryDetails();
+                                    details = new Gson().fromJson(json, AdBeneficiaryDetails.class);
+                                    Toast.makeText(mContext, "Transfer to " + details.getAccountNumber() + " has been successfully done", Toast.LENGTH_LONG).show();
                                     getActivity().onBackPressed();
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -708,21 +750,23 @@ public class WalletToWalletTransferFragment extends Fragment implements Vertical
         }
     }
 
-    public void checkAvailableBalance() {
 
-        String balanceAmount = inventory.getFamaWallet().getCurrentAmount();
-        double availAmount = 0;
-        if(balanceAmount!=null && !balanceAmount.equalsIgnoreCase(""))
-                availAmount = Double.parseDouble(balanceAmount);
-        if (availAmount <= 0) {
-            AppUtills.showLowBalance(getActivity(),
-                    mContext.getResources().getString(R.string.error_wallet_low_balance),true);
-            verticalStepperForm.goToPreviousStep();
-        } else {
-            availBalance.setText(""+balanceAmount);
-            verticalStepperForm.setStepAsCompleted(AVAILABLE_BALANCE_STEP_NUM);
-            verticalStepperForm.setStepSubtitle(AVAILABLE_BALANCE_STEP_NUM,""+ availAmount);
-            verticalStepperForm.goToStep(RECEIVER_EMAIL_STEP_NUME, true);
+    public void checkAvailableBalance(int position){
+
+        if(accountNoList.get(position).getAccountNumber()!=null){
+
+            double availAmount = Double.parseDouble(accountNoList.get(position).getBalance());
+            if (availAmount <= 0) {
+                AppUtills.showLowBalance(getActivity(),
+                        mContext.getResources().getString(R.string.error_account_low_balance),false);
+                verticalStepperForm.goToPreviousStep();
+            } else {
+                balance.setText("" + accountNoList.get(position).getBalance());
+                verticalStepperForm.setActiveStepAsCompleted();
+                verticalStepperForm.setStepAsCompleted(AVAILABLE_BALANCE_STEP_NUM);
+                verticalStepperForm.setStepSubtitle(AVAILABLE_BALANCE_STEP_NUM,""+availAmount);
+                verticalStepperForm.goToStep(RECEIVER_BKASH_ACC_NO_STEP_NUM, true);
+            }
             BALANCE = ""+availAmount;
         }
 

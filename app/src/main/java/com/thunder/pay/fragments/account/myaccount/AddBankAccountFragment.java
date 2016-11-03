@@ -1,4 +1,4 @@
-package com.thunder.pay.fragments.account.viewaccount;
+package com.thunder.pay.fragments.account.myaccount;
 
 import android.app.ProgressDialog;
 import android.content.Context;

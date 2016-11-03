@@ -658,7 +658,7 @@ public class AddAmountToWalletFragment extends Fragment implements VerticalStepp
                                 }
                                 } else {
                                 try {
-                                    FAMA famaWallet = new Gson().fromJson(json, FAMA.class);
+
 
 //                                    Inventory inventory = DataHandler.Single.INSTANCE.getInstance().getInventory();
 //                                    inventory.setFamaWallet(famaWallet);
@@ -666,6 +666,7 @@ public class AddAmountToWalletFragment extends Fragment implements VerticalStepp
 //                                    inventory = DataHandler.Single.INSTANCE.getInstance().getInventory();
 //                                    famaWallet = inventory.getFamaWallet();
 
+                                    FAMA famaWallet = new Gson().fromJson(json, FAMA.class);
                                     DataHandler.Single.INSTANCE.getInstance().setFamaWallet(famaWallet);
                                     FAMA fama1 = DataHandler.Single.INSTANCE.getInstance().getFamaWallet();
                                     System.out.println("inventory.getFamaWallet() Wallet affter update "+new Gson().toJson(fama1));

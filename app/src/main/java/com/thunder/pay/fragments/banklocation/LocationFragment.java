@@ -97,12 +97,10 @@ public class LocationFragment extends Fragment implements GoogleMapFragment.UiUp
         locationExpandableAdapter.setExpandCollapseListener(new ExpandableRecyclerAdapter.ExpandCollapseListener() {
             @Override
             public void onParentExpanded(int parentPosition) {
-                Toast.makeText(mContext, "" + parentPosition, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onParentCollapsed(int parentPosition) {
-                Toast.makeText(mContext, "" + parentPosition, Toast.LENGTH_SHORT).show();
             }
         });
         myRecyclerView.setAdapter(locationExpandableAdapter);
@@ -180,8 +178,6 @@ public class LocationFragment extends Fragment implements GoogleMapFragment.UiUp
 
     @Override
     public void onUiUpdate() {
-
-        Toast.makeText(mContext, "onUiUpdate " + isFullScreen, Toast.LENGTH_SHORT).show();
 
         FrameLayout frameLayout = (FrameLayout) mainView.findViewById(R.id.view_map_layout);
 

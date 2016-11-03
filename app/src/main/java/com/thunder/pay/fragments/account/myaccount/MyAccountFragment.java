@@ -1,12 +1,10 @@
-package com.thunder.pay.fragments.account.viewaccount;
+package com.thunder.pay.fragments.account.myaccount;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
@@ -39,7 +37,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ViewAccountFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, ViewAccountListAdapter.OnItemClickListener {
+public class MyAccountFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, ViewAccountListAdapter.OnItemClickListener {
 
 
     Context mContext;
@@ -52,11 +50,11 @@ public class ViewAccountFragment extends Fragment implements SwipeRefreshLayout.
 
     public enum Single {
         INSTANCE;
-        ViewAccountFragment s = new ViewAccountFragment();
+        MyAccountFragment s = new MyAccountFragment();
 
-        public ViewAccountFragment getInstance() {
+        public MyAccountFragment getInstance() {
             if (s == null)
-                return new ViewAccountFragment();
+                return new MyAccountFragment();
             else return s;
         }
     }

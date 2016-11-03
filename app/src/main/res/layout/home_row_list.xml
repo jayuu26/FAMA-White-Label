@@ -10,14 +10,12 @@
     android:background="@color/appbg"
     card_view:cardUseCompatPadding="true">
 
-
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/selector_grid"
             android:gravity="center"
-            android:minHeight="150dp">
+            android:minHeight="160dp">
 
             <ImageView
                 android:id="@+id/opt_photo"
@@ -27,9 +25,7 @@
                 android:contentDescription="@string/action_settings"
                 android:scaleType="centerCrop"
                 android:src="@drawable/home_search"
-
                 />
-
             <TextView
                 android:id="@+id/opt_name"
                 android:layout_width="match_parent"
@@ -38,6 +34,5 @@
                 android:layout_marginTop="15dp"
                 android:gravity="center"
                 android:textSize="13sp" />
-
         </RelativeLayout>
 </android.support.v7.widget.CardView>

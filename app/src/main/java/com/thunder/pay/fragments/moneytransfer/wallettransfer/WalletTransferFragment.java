@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.thunder.pay.R;
 import com.thunder.pay.adapter.transferadapter.wallet.WalletTransferListAdapter;
+import com.thunder.pay.fragments.moneytransfer.bkashtransfer.WalletToBkashkTransferFragment;
 import com.thunder.pay.util.AppUtills;
 
 public class WalletTransferFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, WalletTransferListAdapter.OnItemClickListener {
@@ -101,7 +102,7 @@ public class WalletTransferFragment extends Fragment implements SwipeRefreshLayo
                 AppUtills.loadFragment(WalletToBankTransferFragment.Single.INSTANCE.getInstance(), getActivity(), R.id.container);
                 break;
             case 2:
-                Toast.makeText(mContext, "Coming Soon", Toast.LENGTH_SHORT).show();
+                AppUtills.loadFragment(WalletToBkashkTransferFragment.Single.INSTANCE.getInstance(), getActivity(), R.id.container);
                 break;
         }
     }

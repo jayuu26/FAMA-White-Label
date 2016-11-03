@@ -167,63 +167,74 @@
 
 
     <string-array name="steps_recharge_wallet">
-        <item>Email Address</item>
-        <item>Amount</item>
+        <item>My Email Address</item>
+        <item>Recharge Amount</item>
         <item>Description/Remarks</item>
     </string-array>
 
     <string-array name="steps_bank_to_wallet">
-        <item>Select Account Number</item>
+        <item>My Account Number</item>
         <item>Available Balance</item>
         <item>Receiver Email Address</item>
-        <item>Amount</item>
+        <item>Transfer Amount</item>
         <item>Description/Remarks</item>
     </string-array>
 
     <string-array name="steps_w_to_bank">
-        <item>Sender Email Address</item>
+        <item>My Email Address</item>
         <item>Available Balance</item>
         <item>Receiver Account Number</item>
-        <item>Amount</item>
+        <item>Transfer Amount</item>
         <item>Description/Remarks</item>
     </string-array>
 
     <string-array name="steps_w_to_w">
-        <item>Sender Email Address</item>
+        <item>My Email Address</item>
         <item>Available Balance</item>
         <item>Receiver Email Address</item>
-        <item>Amount</item>
+        <item>Transfer Amount</item>
         <item>Description/Remarks</item>
     </string-array>
 
     <string-array name="steps_transfer_exist">
-        <item>Bank Account</item>
+        <item>My Bank Account</item>
         <item>Available Balance</item>
         <item>Personal Payee</item>
-        <item>Amount</item>
+        <item>Transfer Amount</item>
         <item>Description/Remarks</item>
     </string-array>
     <string-array name="steps_add_beneficiary">
-        <item>Bank Account</item>
+        <item>My Bank Account</item>
         <item>Beneficiary Name</item>
-        <item>Beneficiary Account No</item>
-        <item>Confirm Account No</item>
+        <item>Beneficiary Account Number</item>
+        <item>Confirm Account Number</item>
         <item>Bank Code</item>
     </string-array>
     <string-array name="steps_add_account">
-        <item>Bank Name</item>
-        <item>Branch Name</item>
-        <item>Account Number</item>
-        <item>Customer Id</item>
-        <item>Password</item>
+        <item>My Bank Name</item>
+        <item>My Branch Name</item>
+        <item>My Account Number</item>
+        <item>My Customer Id</item>
+        <item>My Password</item>
     </string-array>
 
-    <string-array name="steps_subtitles">
-        <item>Title of the alarm</item>
-        <item>Description of the alarm</item>
-        <item>Time when the alarm will go off</item>
-        <item>Week schedule of the alarm</item>
+
+    <string-array name="steps_w_to_bkash">
+        <item>My Email Address</item>
+        <item>Available Balance</item>
+        <item>Receiver BKash Account Number</item>
+        <item>Transfer Amount</item>
+        <item>Description/Remarks</item>
     </string-array>
+
+    <string-array name="steps_bank_to_bkash">
+        <item>My Account Numbe</item>
+        <item>Available Balance</item>
+        <item>Receiver BKash Account Number</item>
+        <item>Transfer Amount</item>
+        <item>Description/Remarks</item>
+    </string-array>
+
     <string-array name="week_days">
         <item>M</item>
         <item>T</item>

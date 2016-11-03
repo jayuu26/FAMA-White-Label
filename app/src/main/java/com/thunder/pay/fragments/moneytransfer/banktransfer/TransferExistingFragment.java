@@ -230,7 +230,7 @@ public class TransferExistingFragment extends Fragment implements VerticalSteppe
                 break;
             case PERSONLA_PAYEESTEP_NUM:
                 if (ErrorUtills.checkTextMinLength(PAERSONAL_PAYEE, 16)) {
-//                    verticalStepperForm.setStepSubtitle(stepNumber, "" + RECIEVER_ACC_NO);
+//                    verticalStepperForm.setStepSubtitle(stepNumber, "" + RECIEVER_BKASH_ACC_NO);
                     verticalStepperForm.setStepAsCompleted(stepNumber);
                 } else {
                     verticalStepperForm.setActiveStepAsUncompleted(mContext.getResources().getString(R.string.error_select_payee_acc_no));

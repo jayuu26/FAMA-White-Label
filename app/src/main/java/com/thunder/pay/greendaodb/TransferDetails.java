@@ -13,7 +13,15 @@ public class TransferDetails {
     private String email;
     private String comment;
     private String amount;
+    private String receiverBkash;
 
+    public String getReceiverBkash() {
+        return receiverBkash;
+    }
+
+    public void setReceiverBkash(String receiverBkash) {
+        this.receiverBkash = receiverBkash;
+    }
 
     public String getEmail() {
         return email;

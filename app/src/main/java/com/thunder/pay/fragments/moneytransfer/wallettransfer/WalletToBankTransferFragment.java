@@ -36,6 +36,7 @@ import com.thunder.pay.daomodel.DataHandler;
 import com.thunder.pay.greendaodb.AdBeneficiaryDetails;
 import com.thunder.pay.greendaodb.BankDetail;
 import com.thunder.pay.greendaodb.ErrorModel;
+import com.thunder.pay.greendaodb.FAMA;
 import com.thunder.pay.greendaodb.Inventory;
 import com.thunder.pay.greendaodb.TransferDetails;
 import com.thunder.pay.rest.RestCall;
@@ -654,9 +655,10 @@ public class WalletToBankTransferFragment extends Fragment implements VerticalSt
                                 }
                                 } else {
                                 try {
-                                    AdBeneficiaryDetails details = new AdBeneficiaryDetails();
-                                    details = new Gson().fromJson(json, AdBeneficiaryDetails.class);
-                                    Toast.makeText(mContext, "Transfer to " + details.getAccountNumber() + " has been successfully done", Toast.LENGTH_LONG).show();
+//                                    FAMA famaWallet = new Gson().fromJson(json, FAMA.class);
+//                                    DataHandler.Single.INSTANCE.getInstance().setFamaWallet(famaWallet);
+//                                    FAMA fama1 = DataHandler.Single.INSTANCE.getInstance().getFamaWallet();
+                                    Toast.makeText(mContext, mContext.getResources().getString(R.string.amount_transfer_success), Toast.LENGTH_LONG).show();
                                     getActivity().onBackPressed();
                                 } catch (Exception e) {
                                     e.printStackTrace();

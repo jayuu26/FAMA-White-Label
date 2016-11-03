@@ -42,6 +42,7 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.thunder.pay.R;
+import com.thunder.pay.activity.App;
 import com.thunder.pay.constant.AppConstants;
 import com.thunder.pay.constant.CollectionObject;
 import com.thunder.pay.daomodel.CountryCode;
@@ -68,6 +69,7 @@ import java.util.regex.Pattern;
 
 public class AppUtills {
 
+    private  String TAG = getClass().getName();
     private static char[] chunkBuffer = new char[1024];
 
     public synchronized static String readData(InputStreamReader rd) {
@@ -624,6 +626,7 @@ public class AppUtills {
         dialog.show();
 
     }
+
 }
 
 
