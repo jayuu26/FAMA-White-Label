@@ -119,8 +119,8 @@ public class HomeFragment extends Fragment implements HomeListGridAdapter.OnClic
 
         currentDate.setText(DateUtils.getMonthNameYear());
 
-        if(inventory.getFamaWallet()!=null)
-            fama_current_amount.setText(""+inventory.getFamaWallet().getCurrentAmount()+""+inventory.getFamaWallet().getCurrencyCode());
+//        if(inventory.getFamaWallet()!=null)
+//            fama_current_amount.setText(""+inventory.getFamaWallet().getCurrentAmount()+""+inventory.getFamaWallet().getCurrencyCode());
 
 //        refresh();
         requestToServer();
@@ -150,12 +150,14 @@ public class HomeFragment extends Fragment implements HomeListGridAdapter.OnClic
     }
 
     public void refresh(){
-
         AppUtills.setActionBarTitle("FAMA", ((AppCompatActivity) getActivity()).getSupportActionBar(), getActivity(), false);
         FAMA fama = DataHandler.Single.INSTANCE.getInstance().getFamaWallet();
-
         if(fama!=null)
             fama_current_amount.setText(""+fama.getCurrentAmount()+""+fama.getCurrencyCode());
+        else
+        if(inventory.getFamaWallet()!=null)
+            fama_current_amount.setText(""+inventory.getFamaWallet().getCurrentAmount()+""+inventory.getFamaWallet().getCurrencyCode());
+
 
     }
 
@@ -189,7 +191,6 @@ public class HomeFragment extends Fragment implements HomeListGridAdapter.OnClic
                                 try {
                                     FAMA famaWallet = new Gson().fromJson(json, FAMA.class);
                                     DataHandler.Single.INSTANCE.getInstance().setFamaWallet(famaWallet);
-                                    refresh();
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                     Toast.makeText(mContext, "" + MessageConstant.GENERIC_ERROR, Toast.LENGTH_SHORT).show();
@@ -215,5 +216,6 @@ public class HomeFragment extends Fragment implements HomeListGridAdapter.OnClic
 
         }
 
+        refresh();
     }
 }

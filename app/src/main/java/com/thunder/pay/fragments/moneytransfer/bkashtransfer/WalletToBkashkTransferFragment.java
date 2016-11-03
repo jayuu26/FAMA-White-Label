@@ -706,7 +706,8 @@ public class WalletToBkashkTransferFragment extends Fragment implements Vertical
 
     public void checkAvailableBalance() {
 
-        String balanceAmount = inventory.getFamaWallet().getCurrentAmount();
+        FAMA fama = DataHandler.Single.INSTANCE.getInstance().getFamaWallet();
+        String balanceAmount = fama.getCurrentAmount();
         double availAmount = 0;
         if(balanceAmount!=null && !balanceAmount.equalsIgnoreCase(""))
             availAmount = Double.parseDouble(balanceAmount);

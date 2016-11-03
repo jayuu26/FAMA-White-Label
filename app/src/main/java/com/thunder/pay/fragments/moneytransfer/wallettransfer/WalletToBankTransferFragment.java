@@ -102,6 +102,8 @@ public class WalletToBankTransferFragment extends Fragment implements VerticalSt
     private VerticalStepperFormLayout verticalStepperForm;
     Inventory inventory;
 
+
+
     CheckBox checkTerms;
 
     public enum Single {
@@ -144,6 +146,7 @@ public class WalletToBankTransferFragment extends Fragment implements VerticalSt
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
           inventory = DataHandler.Single.INSTANCE.getInstance().getInventory();//InventoryDBHelper.single.INSTANCE.getInstnce().getItemList(getActivity(), "");
+
         try {
             SENDER_EMAIL = inventory.getEmail();
             BALANCE = inventory.getFamaWallet().getCurrentAmount();
@@ -704,8 +707,8 @@ public class WalletToBankTransferFragment extends Fragment implements VerticalSt
     }
 
     public void checkAvailableBalance() {
-
-        String balanceAmount = inventory.getFamaWallet().getCurrentAmount();
+        FAMA fama = DataHandler.Single.INSTANCE.getInstance().getFamaWallet();
+        String balanceAmount = fama.getCurrentAmount();
         double availAmount = 0;
         if(balanceAmount!=null && !balanceAmount.equalsIgnoreCase(""))
             availAmount = Double.parseDouble(balanceAmount);
