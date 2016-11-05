@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.common.base.CaseFormat;
 import com.thunder.pay.R;
+import com.thunder.pay.constant.AppConstants;
 import com.thunder.pay.greendaodb.BankDetail;
 import com.thunder.pay.util.AppUtills;
 import com.thunder.pay.util.DateUtils;
@@ -35,25 +37,23 @@ public class BankHistoryListAdapter extends RecyclerView.Adapter<BankHistoryList
     public class ViewHolder extends RecyclerView.ViewHolder {
         private CardView cardView;
         private LinearLayout first;
-        private TextView currentAmount;
-        private TextView lastUsedTime;
-        private LinearLayout second;
+        private TextView transactionType;
         private TextView lastAmount;
         private TextView updatedAmount;
-        private TextView transferType;
-        private TextView transactioType;
+        private TextView transactionBy;
+        private TextView transactionTime;
+        private TextView currentAmount;
 
         public ViewHolder(View view) {
             super(view);
             cardView = (CardView) view.findViewById(R.id.card_view);
             first = (LinearLayout) view.findViewById(R.id.first);
-            currentAmount = (TextView) view.findViewById(R.id.current_amount);
-            lastUsedTime = (TextView) view.findViewById(R.id.last_used_time);
-            second = (LinearLayout) view.findViewById(R.id.second);
+            transactionType = (TextView) view.findViewById(R.id.transaction_type);
             lastAmount = (TextView) view.findViewById(R.id.last_amount);
             updatedAmount = (TextView) view.findViewById(R.id.updated_amount);
-            transferType = (TextView) view.findViewById(R.id.transfer_type);
-            transactioType = (TextView) view.findViewById(R.id.transactio_type);
+            transactionBy = (TextView) view.findViewById(R.id.transaction_by);
+            transactionTime = (TextView) view.findViewById(R.id.transaction_time);
+            currentAmount = (TextView) view.findViewById(R.id.current_amount);
         }
     }
 
@@ -70,7 +70,7 @@ public class BankHistoryListAdapter extends RecyclerView.Adapter<BankHistoryList
     public BankHistoryListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                                 int viewType) {
         // create a new view
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.bank_history_row_layout, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.wallet_history_row_layout, parent, false);
         // set the view's size, margins, paddings and layout parameters
         ViewHolder vh = new ViewHolder(v);
         return vh;
@@ -82,12 +82,32 @@ public class BankHistoryListAdapter extends RecyclerView.Adapter<BankHistoryList
 
         if (bankDetailArrayList != null && bankDetailArrayList.size() > 0) {
 
-            holder.currentAmount.setText(""+bankDetailArrayList.get(position).getAmount());
-            holder.lastUsedTime.setText(""+ DateUtils.getDate(bankDetailArrayList.get(position).getUsedOn()));
-            holder.lastAmount.setText(""+bankDetailArrayList.get(position).getPreviousBankAmount());
-            holder.updatedAmount.setText(""+bankDetailArrayList.get(position).getUpdatedBankAmount());
-            holder.transferType.setText(""+bankDetailArrayList.get(position).getTransferType());
-            holder.transactioType.setText(""+bankDetailArrayList.get(position).getTransactionType());
+            if (bankDetailArrayList != null && bankDetailArrayList.size() > 0) {
+                String type = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, "" + bankDetailArrayList.get(position).getTransactionType());
+                type = AppUtills.splitCamelCase(type);
+                holder.transactionType.setText(type);
+                holder.lastAmount.setText("Previous Amount : " + bankDetailArrayList.get(position).getPreviousBankAmount());
+                holder.updatedAmount.setText("Updated Amount : " + bankDetailArrayList.get(position).getUpdatedBankAmount());
+
+                if (bankDetailArrayList.get(position).getProcessedBy() != null) {
+                    String name = bankDetailArrayList.get(position).getProcessedBy().getFirstname() +
+                            " " + bankDetailArrayList.get(position).getProcessedBy().getLastname();
+                    name = AppUtills.capitalizeName(name);
+                    holder.transactionBy.setText("Transaction By : " + name);
+                }
+
+                holder.transactionTime.setText("" + DateUtils.getDateTime(bankDetailArrayList.get(position).getUsedOn()));
+
+                holder.currentAmount.setText("" + bankDetailArrayList.get(position).getAmount());
+
+                if (bankDetailArrayList.get(position).getTransferType().equalsIgnoreCase("" + AppConstants.ADD_MONEY)) {
+                    holder.currentAmount.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_black_24dp, 0, 0, 0);
+                } else if (bankDetailArrayList.get(position).getTransferType().equalsIgnoreCase("" + AppConstants.DEDUCT_MONEY)) {
+                    holder.currentAmount.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_remove_black_24dp, 0, 0, 0);
+                }
+            }
+
+
         }
     }
 

@@ -70,6 +70,16 @@ public class BankDetail implements Serializable {
     private String previousWalletAmount;
     private String updatedWalletAmount;
 
+    private ProcessedBy processedBy;
+
+    public ProcessedBy getProcessedBy() {
+        return processedBy;
+    }
+
+    public void setProcessedBy(ProcessedBy processedBy) {
+        this.processedBy = processedBy;
+    }
+
     @Generated(hash = 1504205932)
     public BankDetail(@NotNull Long id, String bankName, String bankCode,
             Long micrCode, String description, String address, Double latitude,

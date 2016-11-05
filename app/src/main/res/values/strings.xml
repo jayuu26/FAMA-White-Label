@@ -164,6 +164,7 @@
     <string name="error_title_min_characters">At least %1$d characters</string>
     <string name="main_activity_explanation">Click the button to try it!</string>
     <string name="main_activity_explanation_disclaimer">This app DOES NOT set up alarms for real!</string>
+    <string name="transaction_type">Transaction Type</string>
 
 
     <string-array name="steps_recharge_wallet">

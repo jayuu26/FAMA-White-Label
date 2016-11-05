@@ -8,7 +8,10 @@ import android.os.Environment;
 public interface AppConstants {
 
 	int SEARCH_TIME = 1500;
- 	enum UserStatusType {AVAILABLE,BUSY,DO_NOT_DISTURB,OFF_TO_WORK,APPEAR_AWAY,REST_STATUS}
+	String ADD_MONEY = "ADD";
+	String DEDUCT_MONEY = "DEDUCT";
+
+	enum UserStatusType {AVAILABLE,BUSY,DO_NOT_DISTURB,OFF_TO_WORK,APPEAR_AWAY,REST_STATUS}
 
 	String ONE = "SmFp";
 

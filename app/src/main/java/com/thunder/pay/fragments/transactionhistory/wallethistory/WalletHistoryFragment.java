@@ -155,14 +155,6 @@ public class WalletHistoryFragment extends Fragment implements SwipeRefreshLayou
 
         if (AppUtills.isNetworkAvailable(mContext)) {
             mIsLoading = true;
-           // final ProgressDialog dialog = AppUtills.showProgressDialog(getActivity());
-
-            Map<String, String> data = new HashMap<>();
-            data.put("_s=user.userid=", ""+userId);
-            data.put("isDeleted=", "false");
-            data.put("ulimit=", "50");
-            data.put("llimit=", "00");
-
 
             String fiqlUrl = "rest/FamaWalletHistory/search?_s=user.userid==" + userId + "&llimit=" + lowerLimitCount +"&ulimit=" + upperLimitCount;
             final Call<ResponseBody> repos = service.FamaWalletHistory(fiqlUrl);

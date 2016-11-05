@@ -627,6 +627,26 @@ public class AppUtills {
 
     }
 
+    public static String capitalizeName(String name) {
+        String fullName = "";
+        String names[] = name.split(" ");
+        for (String n: names) {
+            fullName = fullName + n.substring(0, 1).toUpperCase() + n.toLowerCase().substring(1, n.length()) + " ";
+        }
+        return fullName;
+    }
+
+    public static String splitCamelCase(String s) {
+        return s.replaceAll(
+                String.format("%s|%s|%s",
+                        "(?<=[A-Z])(?=[A-Z][a-z])",
+                        "(?<=[^A-Z])(?=[A-Z])",
+                        "(?<=[A-Za-z])(?=[^A-Za-z])"
+                ),
+                " "
+        );
+    }
 }
+
 
 

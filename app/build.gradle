@@ -85,6 +85,7 @@ dependencies {
 
     compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
     compile 'org.greenrobot:greendao:3.2.0'
+    compile group: 'com.google.guava', name: 'guava', version: 'r05'
 }
 
 uploadArchives.enabled = false
