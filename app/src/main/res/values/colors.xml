@@ -8,6 +8,7 @@
     <color name="tabsScrollColor">#8a140e</color>
     <color name="themecolor">#023CA6</color>
 
+    <color name="graphcolor">#2196F3</color>
     <string-array name="refresh_dialog">
         <item>#24c6d5</item>
         <item>#57dd86</item>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.thunder.pay"
+    package="com.fama.app"
     android:versionCode="1"
     android:versionName="1.0.0"
 
@@ -8,20 +8,22 @@
 
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
 
-        android:name=".activity.App"
+        android:name="com.fama.app.activity.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.SplashActivity"
+            android:name="com.fama.app.activity.SplashActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
@@ -33,17 +35,17 @@
         </activity>
 
         <activity
-            android:name=".activity.ActivityLoginActivity"
+            android:name="com.fama.app.activity.ActivityLoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.MainActivity"
+            android:name="com.fama.app.activity.MainActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
-            android:parentActivityName="com.thunder.pay.activity.MainActivity"
+            android:parentActivityName="com.fama.app.activity.MainActivity"
             android:windowSoftInputMode="stateHidden|adjustPan">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.thunder.pay.activity.MainActivity" />
+                android:value="com.fama.app.activity.MainActivity" />
         </activity>
 
         <meta-data
@@ -55,7 +57,7 @@
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyCE7fTSn6nmMNbmDwunJAlC1noiHt_st1g" />
 
-        <service android:name=".FCM.MyFirebaseInstanceIDService">
+        <service android:name="com.fama.app.FCM.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>

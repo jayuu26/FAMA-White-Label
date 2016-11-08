@@ -152,7 +152,7 @@
                         android:textColor="#FFFFFF" />
                 </LinearLayout>
 
-                <com.thunder.pay.customlayout.RippleView
+                <com.fama.app.customlayout.RippleView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -169,7 +169,7 @@
                         android:text="@string/login_text"
                         android:textColor="#ffffff"
                         android:textSize="20sp" />
-                </com.thunder.pay.customlayout.RippleView>
+                </com.fama.app.customlayout.RippleView>
 
                 <TextView
                     android:layout_width="match_parent"

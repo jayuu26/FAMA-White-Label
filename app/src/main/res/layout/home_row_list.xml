@@ -15,7 +15,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/selector_grid"
             android:gravity="center"
-            android:minHeight="160dp">
+            android:minHeight="145dp">
 
             <ImageView
                 android:id="@+id/opt_photo"

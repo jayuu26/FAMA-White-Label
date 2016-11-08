@@ -1,35 +1,35 @@
 {
   "project_info": {
-    "project_number": "161720563737",
-    "firebase_url": "https://itunemusicapi.firebaseio.com",
-    "project_id": "itunemusicapi",
-    "storage_bucket": "itunemusicapi.appspot.com"
+    "project_number": "657866280334",
+    "firebase_url": "https://fama-white-label.firebaseio.com",
+    "project_id": "fama-white-label",
+    "storage_bucket": "fama-white-label.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:161720563737:android:0ad44489c90abefb",
+        "mobilesdk_app_id": "1:657866280334:android:628588b086106de8",
         "android_client_info": {
-          "package_name": "com.thunder.pay"
+          "package_name": "com.fama.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "161720563737-emqhbrkl3v7e65lquisiovhrasl3t2dn.apps.googleusercontent.com",
+          "client_id": "657866280334-ok9for48l5as9mrlgd378fnh2l3m9t68.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.thunder.pay",
+            "package_name": "com.fama.app",
             "certificate_hash": "E668099281C10D0687747A8092D910C5F9CC2ECC"
           }
         },
         {
-          "client_id": "161720563737-21eupjkbpsnrkcru77h803l2npcbipho.apps.googleusercontent.com",
+          "client_id": "657866280334-pl58jkk3onco1eafcqgn7atpkpsr3a6s.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAy8ivQFFBdQhYa6O-Su62Grb4ctXs182s"
+          "current_key": "AIzaSyBDVQFebgD4u4pd1TAMgZ0VGf9ziHgZUnc"
         }
       ],
       "services": {
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "161720563737-21eupjkbpsnrkcru77h803l2npcbipho.apps.googleusercontent.com",
+              "client_id": "657866280334-pl58jkk3onco1eafcqgn7atpkpsr3a6s.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
