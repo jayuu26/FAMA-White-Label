@@ -80,8 +80,8 @@ public class ViewAccountListAdapter extends RecyclerView.Adapter<ViewAccountList
         if(bankDetailArrayList!=null && bankDetailArrayList.size()>0){
             holder.accNo.setText(bankDetailArrayList.get(position).getAccountNumber());
             holder.customerNo.setText(bankDetailArrayList.get(position).getCustomerId());
-            holder.balance.setText(bankDetailArrayList.get(position).getBalance());
-            holder.lastUseDate.setText(DateUtils.getDate(bankDetailArrayList.get(position).getLastUsedOn()));
+            holder.balance.setText(bankDetailArrayList.get(position).getBalance()+ " ("+bankDetailArrayList.get(position).getCurrencyCode()+")");
+            holder.lastUseDate.setText(DateUtils.getDateTime(bankDetailArrayList.get(position).getLastUsedOn()));
         }
 //        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
 //            @Override

@@ -3,6 +3,7 @@ package com.fama.app.fragments.account;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
@@ -105,7 +106,7 @@ public class AccountsFragment extends Fragment {
         viewPager = (ViewPager) view.findViewById(R.id.tabanim_viewpager);
         setupViewPager(viewPager);
         tabLayout = (SlidingTabLayout) view.findViewById(R.id.tabanim_tabs);
-        tabLayout.setViewPager(viewPager);
+//        tabLayout.setViewPager(viewPager);
 
         System.out.println("  getString(banner_ad_unit_id) " + getString(R.string.banner_ad_unit_id));
 

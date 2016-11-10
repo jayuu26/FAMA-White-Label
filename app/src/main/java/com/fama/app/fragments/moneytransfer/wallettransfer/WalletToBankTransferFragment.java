@@ -719,7 +719,7 @@ public class WalletToBankTransferFragment extends Fragment implements VerticalSt
 
                 availBalance.setText(""+balanceAmount);
                 verticalStepperForm.setStepAsCompleted(AVAILABLE_BALANCE_STEP_NUM);
-                verticalStepperForm.setStepSubtitle(AVAILABLE_BALANCE_STEP_NUM,""+ availAmount);
+                verticalStepperForm.setStepSubtitle(AVAILABLE_BALANCE_STEP_NUM,""+ availAmount+" ("+fama.getCurrencyCode()+")");
                 verticalStepperForm.goToNextStep();
                 BALANCE = ""+availAmount;
             }

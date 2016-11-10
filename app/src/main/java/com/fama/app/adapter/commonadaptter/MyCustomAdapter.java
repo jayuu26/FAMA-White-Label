@@ -57,6 +57,8 @@ public class MyCustomAdapter extends ArrayAdapter<BankDetail> {
             textView.setText("" + bankDetails.get(position).getDescription());
         } else if(LOV_TYPE.equalsIgnoreCase("Account")) {
             textView.setText("" + bankDetails.get(position).getAccountNumber());
+        }else if(LOV_TYPE.equalsIgnoreCase("Account_Type")) {
+            textView.setText("" + bankDetails.get(position).getBankAccountType());
         }else if(LOV_TYPE.equalsIgnoreCase("AccountHolder")) {
             if(position>0)
                 textView.setText("" + bankDetails.get(position).getAccountHolderName() +"\n("+ bankDetails.get(position).getAccountNumber() +" )");

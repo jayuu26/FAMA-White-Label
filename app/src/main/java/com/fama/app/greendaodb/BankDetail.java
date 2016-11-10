@@ -22,6 +22,8 @@ public class BankDetail implements Serializable {
 
     private String bankCode;
 
+    private String bankAccountType;
+
     private Long micrCode;
 
     private String description;
@@ -55,6 +57,10 @@ public class BankDetail implements Serializable {
     private String lastUsedOn;
 
     private String ifscCode;
+
+    private String currencyCode;
+
+    private String currency;
 
     /*For Bank History*/
     private String amount;
@@ -102,8 +108,23 @@ public class BankDetail implements Serializable {
     public BankDetail() {
     }
 
+    public String getCurrencyCode() {
+        return currencyCode;
+    }
 
-    /*For Wallet History*/
+    public void setCurrencyCode(String currencyCode) {
+        this.currencyCode = currencyCode;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+/*For Wallet History*/
 
     public String getPreviousWalletAmount() {
         return previousWalletAmount;
@@ -259,6 +280,14 @@ public class BankDetail implements Serializable {
 
     public void setBankName(String bankName) {
         this.bankName = bankName;
+    }
+
+    public String getBankAccountType() {
+        return bankAccountType;
+    }
+
+    public void setBankAccountType(String bankAccountType) {
+        this.bankAccountType = bankAccountType;
     }
 
     public String getBankCode() {

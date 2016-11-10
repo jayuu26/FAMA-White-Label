@@ -5,33 +5,43 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="@color/appbg"
+    android:fitsSystemWindows="true"
     tools:context="com.fama.app.activity.MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="#F4F6FA">
+        android:background="#F4F6FA"
+        android:orientation="vertical">
+
 
         <ImageView
             android:id="@+id/footer"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_width="50dp"
+            android:layout_height="25dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
             android:layout_marginBottom="5dp"
-            android:layout_weight=".10"
-            android:src="@drawable/fama_logo_bottom"
+            android:adjustViewBounds="true"
+            android:background="@drawable/fama_logo_bottom"
             android:visibility="visible" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="2dp"
+            android:layout_toLeftOf="@id/footer"
+            android:text="Powered By "
+            android:textColor="@color/light_grey" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_above="@+id/footer">
+            android:layout_above="@+id/footer"
+            android:orientation="vertical">
 
 
             <include layout="@layout/app_bar_splash" />
@@ -55,17 +65,16 @@
         android:visibility="visible"
         app:headerLayout="@layout/drawer_header"
         app:itemIconTint="@color/selector"
-        app:itemTextColor="@color/selector"
-         >
+        app:itemTextColor="@color/selector">
         <!--app:menu="@menu/drawer_menu"-->
         <ExpandableListView
+            android:id="@+id/navigationmenu"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@android:color/white"
             android:layout_marginTop="180dp"
-            android:choiceMode="singleChoice"
-            android:id="@+id/navigationmenu"/>
+            android:background="@android:color/white"
+            android:choiceMode="singleChoice" />
 
-        </android.support.design.widget.NavigationView>
+    </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>

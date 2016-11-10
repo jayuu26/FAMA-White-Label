@@ -98,6 +98,7 @@
     <string name="error_transfer_amount">Transfer amount can not be greater than available balance</string>
     <string name="error_enter_email_mismatch">Sender and Receiver email id should not be same.</string>
     <string name="error_account_mismatch">Both the  Account Number should be same.</string>
+
     <string name="error_enter_acc_no">Enter 16 Digit Account Number</string>
     <string name="error_enter_amount">Enter Correct Amount</string>
     <string name="error_enter_remark">Enter Remark</string>
@@ -108,6 +109,7 @@
     <string name="error_enter_customer_no">Enter 6 Digit Customer ID</string>
     <string name="error_enter_bank_code">Enter Bank Code</string>
     <string name="error_enter_password">Enter Minimum 8 Character Password</string>
+    <string name="error_select_acc_type">Select  Account Type</string>
     <string name="error_select_bank_name">Select Bank Name</string>
     <string name="error_select_branch_name">Select Branch Name.</string>
     <string name="error_select_acc_no">Select Account Number</string>
@@ -214,6 +216,7 @@
     <string-array name="steps_add_account">
         <item>My Bank Name</item>
         <item>My Branch Name</item>
+        <item>Account Type</item>
         <item>My Account Number</item>
         <item>My Customer Id</item>
         <item>My Password</item>

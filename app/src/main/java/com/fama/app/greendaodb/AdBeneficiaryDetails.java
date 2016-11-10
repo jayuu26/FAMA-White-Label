@@ -10,11 +10,20 @@ public class AdBeneficiaryDetails {
     private String accountNumber;
     private String customerId;
     private String password;
+    private String bankAccountType;
     private String ifscCode;
     private User user;
     private AccountDetail accountDetail;
     private BankDetail bankDetail;
 
+
+    public String getBankAccountType() {
+        return bankAccountType;
+    }
+
+    public void setBankAccountType(String bankAccountType) {
+        this.bankAccountType = bankAccountType;
+    }
 
     public String getCustomerId() {
         return customerId;

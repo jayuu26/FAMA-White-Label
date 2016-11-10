@@ -13,8 +13,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="5dp"
         android:background="@color/text_color_white"
-        android:minHeight="100dp"
         android:orientation="vertical">
 
 
@@ -22,30 +22,27 @@
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/fab_margin"
-            android:layout_marginTop="@dimen/fab_margin"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_below="@+id/first"
+            android:src="@drawable/ic_delete_black_24dp"
             card_view:backgroundTint="@color/colorPrimaryDark"
             card_view:borderWidth="0dp"
             card_view:elevation="5dp"
-            card_view:fabSize="mini"
-            android:src="@drawable/ic_delete_black_24dp"
-            android:layout_below="@+id/first"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-             />
+            card_view:fabSize="mini" />
 
         <LinearLayout
             android:id="@+id/first"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
+            android:layout_marginTop="5dp"
+            android:padding="1dp"
             android:weightSum="2">
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="15dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -53,10 +50,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/opt_photo"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="1dp"
                     android:text="Beneficiary Name"
-                    android:textColor="@color/list_header_text_color"
-                    android:textSize="16sp"
+                    android:textColor="@color/list_item_text_color"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -64,7 +61,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/opt_photo"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="1dp"
                     android:layout_marginTop="5dp"
                     android:text="XXXXX"
                     android:textColor="@color/list_item_text_color"
@@ -76,7 +73,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_marginTop="15dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -84,10 +80,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/opt_photo"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="1dp"
                     android:text="Bank Code"
-                    android:textColor="@color/list_header_text_color"
-                    android:textSize="16sp"
+                    android:textColor="@color/list_item_text_color"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -95,7 +91,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/opt_photo"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="1dp"
                     android:layout_marginTop="5dp"
                     android:text="XXXXXX"
                     android:textColor="@color/list_item_text_color"
@@ -109,16 +105,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/first"
-            android:paddingBottom="15dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
+            android:layout_marginTop="5dp"
             android:weightSum="2">
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_marginTop="15dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -126,10 +119,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/opt_photo"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="1dp"
                     android:text="Beneficiary Account No"
-                    android:textColor="@color/list_header_text_color"
-                    android:textSize="16sp"
+                    android:textColor="@color/list_item_text_color"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -137,7 +130,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/opt_photo"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="1dp"
                     android:layout_marginTop="5dp"
                     android:text="XXXXX"
                     android:textColor="@color/list_item_text_color"
@@ -150,7 +143,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="15dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -158,10 +150,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/opt_photo"
-                    android:layout_marginLeft="15dp"
-                    android:text="Linked To Account \nNo"
-                    android:textColor="@color/list_header_text_color"
-                    android:textSize="16sp"
+                    android:layout_marginLeft="1dp"
+                    android:text="Linked To Account No"
+                    android:textColor="@color/list_item_text_color"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -169,7 +161,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/opt_photo"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="1dp"
                     android:layout_marginTop="5dp"
                     android:text="XXXXX"
                     android:textColor="@color/list_item_text_color"

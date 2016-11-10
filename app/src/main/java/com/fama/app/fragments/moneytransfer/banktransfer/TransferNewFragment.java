@@ -764,7 +764,9 @@ public class TransferNewFragment extends Fragment implements VerticalStepperForm
                 balance.setText("" + accountNoList.get(position).getBalance());
                 verticalStepperForm.setActiveStepAsCompleted();
                 verticalStepperForm.setStepAsCompleted(AVAILABLE_BALANCE_STEP_NUM);
-                verticalStepperForm.setStepSubtitle(AVAILABLE_BALANCE_STEP_NUM,""+availAmount);
+
+
+                verticalStepperForm.setStepSubtitle(AVAILABLE_BALANCE_STEP_NUM,""+availAmount+" ("+accountNoList.get(position).getCurrencyCode()+")");
                 verticalStepperForm.goToStep(PERSONLA_PAYEESTEP_NUM, true);
             }
             BALANCE = ""+availAmount;

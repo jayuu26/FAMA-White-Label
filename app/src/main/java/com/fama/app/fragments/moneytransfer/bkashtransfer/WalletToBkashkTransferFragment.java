@@ -718,7 +718,7 @@ public class WalletToBkashkTransferFragment extends Fragment implements Vertical
 
                 availBalance.setText(""+balanceAmount);
                 verticalStepperForm.setStepAsCompleted(AVAILABLE_BALANCE_STEP_NUM);
-                verticalStepperForm.setStepSubtitle(AVAILABLE_BALANCE_STEP_NUM,""+ availAmount);
+                verticalStepperForm.setStepSubtitle(AVAILABLE_BALANCE_STEP_NUM,""+ availAmount+" ("+fama.getCurrencyCode()+")");
                 verticalStepperForm.goToNextStep();
                 BALANCE = ""+availAmount;
             }

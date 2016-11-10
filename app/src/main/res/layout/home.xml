@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_weight="2"
     android:background="@color/appbg"
     android:gravity="top"
     android:orientation="vertical">
@@ -29,6 +28,7 @@
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
                 android:text="XXXXXX"
+                android:layout_marginTop="5dp"
                 android:textColor="@color/text_color_white"
                 android:textSize="22sp"
                 android:textStyle="normal" />
@@ -40,11 +40,11 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
                 android:paddingTop="20dp"
-                android:text="FAMA Account Balance >"
+                android:text="Available Balance"
                 android:textColor="@color/text_color_white"
                 android:textSize="12sp"
                 android:textStyle="normal"
-                android:visibility="gone"/>
+                android:visibility="visible" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -58,8 +58,7 @@
                     android:id="@+id/chart1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_above="@+id/seekBar1"
-                    />
+                    android:layout_above="@+id/seekBar1" />
 
             </LinearLayout>
 
@@ -69,11 +68,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:text="sdsdf sdfsdf "
+                android:text="Date "
                 android:textColor="@color/text_color_white"
                 android:textSize="12sp"
                 android:textStyle="normal"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
 
         </RelativeLayout>
@@ -81,28 +80,165 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.40"
-            android:background="#F4F6FA"
+            android:layout_marginTop="1dp"
+            android:layout_weight=".60"
+            android:background="@color/appbg"
             android:orientation="vertical"
-            android:layout_marginTop="5dp"
             android:weightSum="2">
 
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/my_recycler_view"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="1dp"
-                android:scrollbars="vertical" />
+                android:layout_height="0dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="2">
 
-            <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/swipe_refresh_layout"
+                <LinearLayout
+                    android:id="@+id/my_account"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="1dp"
+                    android:padding="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_grid"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/account_img"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerHorizontal="true"
+                        android:contentDescription="@string/action_settings"
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/airtime"
+                       />
+
+                    <TextView
+                        android:id="@+id/opt_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Account"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/recharge_wallet"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_grid"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/recharge_img"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerHorizontal="true"
+                        android:contentDescription="@string/action_settings"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/deals" />
+
+                    <TextView
+                        android:id="@+id/opt_name1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Recharge"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/heading"
-                android:visibility="gone">
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:weightSum="2">
 
-            </android.support.v4.widget.SwipeRefreshLayout>
+                <LinearLayout
+                    android:id="@+id/location"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_grid"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/location_img"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerHorizontal="true"
+                        android:contentDescription="@string/action_settings"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/locations" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Location"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/transfer"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_grid"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/transfer_img"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerHorizontal="true"
+                        android:contentDescription="@string/action_settings"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/funds_transfer" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Transfer"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <!--<android.support.v7.widget.RecyclerView-->
+            <!--android:id="@+id/my_recycler_view"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:padding="1dp"-->
+            <!--android:scrollbars="vertical" />-->
+
+            <!--<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+            <!--android:id="@+id/swipe_refresh_layout"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_below="@+id/heading"-->
+            <!--android:visibility="gone">-->
+
+            <!--</android.support.v4.widget.SwipeRefreshLayout>-->
 
 
         </LinearLayout>

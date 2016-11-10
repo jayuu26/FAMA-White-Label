@@ -767,8 +767,7 @@ public class TransferToFamaWalletFragment extends Fragment implements VerticalSt
                 verticalStepperForm.setActiveStepAsCompleted();
                 balance.setText("" + accountNoList.get(position).getBalance());
                 verticalStepperForm.setStepAsCompleted(AVAILABLE_BALANCE_STEP_NUM);
-                verticalStepperForm.setStepSubtitle(AVAILABLE_BALANCE_STEP_NUM, "" + availAmount);
-                verticalStepperForm.setStepSubtitle(AVAILABLE_BALANCE_STEP_NUM, "" + availAmount);
+                verticalStepperForm.setStepSubtitle(AVAILABLE_BALANCE_STEP_NUM, "" + availAmount+" ("+accountNoList.get(position).getCurrencyCode()+")");
                 verticalStepperForm.goToStep(RECEIVER_EMAIL_STEP_NUM, true);
 
             }

@@ -721,7 +721,7 @@ public class WalletToWalletTransferFragment extends Fragment implements Vertical
         } else {
             availBalance.setText(""+balanceAmount);
             verticalStepperForm.setStepAsCompleted(AVAILABLE_BALANCE_STEP_NUM);
-            verticalStepperForm.setStepSubtitle(AVAILABLE_BALANCE_STEP_NUM,""+ availAmount);
+            verticalStepperForm.setStepSubtitle(AVAILABLE_BALANCE_STEP_NUM,""+ availAmount+" ("+fama.getCurrencyCode()+")");
             verticalStepperForm.goToStep(RECEIVER_EMAIL_STEP_NUME, true);
             BALANCE = ""+availAmount;
         }

@@ -56,7 +56,9 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by ist on 25/8/16.
@@ -373,6 +375,8 @@ public class AppUtills {
                 toolbar.setNavigationIcon(null);
                 toolbar.bringToFront();
 
+                ImageView fama_icon = (ImageView) toolbar.findViewById(R.id.fama_icon);
+                fama_icon.setVisibility(View.GONE);
                 ImageView icon = (ImageView) toolbar.findViewById(R.id.icon);
                 icon.setVisibility(View.VISIBLE);
                 icon.setOnClickListener(new View.OnClickListener() {
@@ -383,6 +387,7 @@ public class AppUtills {
                 });
                 TextView heading = (TextView) toolbar.findViewById(R.id.action_heading);
                 TextView sub_heading = (TextView) toolbar.findViewById(R.id.sub_heading);
+                heading.setVisibility(View.VISIBLE);
                 heading.setText("  " + title.trim());
                 //sub_heading.setText("  " + CollectionObject.LOCATION_ADDRESS);
             } catch (Exception e) {
@@ -398,16 +403,24 @@ public class AppUtills {
 
                 Toolbar toolbar = (Toolbar) activity.findViewById(R.id.action_toolbar);
                 toolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
-
                 toolbar.bringToFront();
 
                 ImageView icon = (ImageView) toolbar.findViewById(R.id.icon);
                 icon.setVisibility(View.GONE);
+                ImageView fama_icon = (ImageView) toolbar.findViewById(R.id.fama_icon);
+                fama_icon.setVisibility(View.GONE);
+
                 TextView heading = (TextView) toolbar.findViewById(R.id.action_heading);
                 TextView sub_heading = (TextView) toolbar.findViewById(R.id.sub_heading);
-                heading.setText("  " + title.trim());
-                //sub_heading.setText("  " + CollectionObject.LOCATION_ADDRESS);
-
+                if(title.trim().equalsIgnoreCase("FAMA")){
+                    actionBar.setIcon(null);
+                    icon.setVisibility(View.GONE);
+                    fama_icon.setVisibility(View.VISIBLE);
+                    heading.setVisibility(View.GONE);
+                }else {
+                    heading.setVisibility(View.VISIBLE);
+                    heading.setText("  " + title.trim());
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -664,6 +677,26 @@ public class AppUtills {
     }
 
 
+    public static String replaceChar(String originalString , String delimater){
+
+        String str ="";
+
+        if(originalString!=null && originalString.length()>0) {
+            for (int i = 0; i < originalString.length(); i++) {
+                str = str + ""+delimater;
+            }
+        }
+        return  str;
+
+    }
+
+    public static String getCurrencySymbol(){
+        String symbol=null;
+//        Locale locale=new Locale(fama.getCurrencyCode().toUpperCase());
+//        Locale locale = new Locale("en", "IN");
+//        Currency currency = Currency.getInstance(locale);
+        return  symbol;
+    }
 }
 
 

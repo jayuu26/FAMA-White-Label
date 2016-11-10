@@ -59,11 +59,13 @@ public class AddBankAccountFragment extends Fragment implements VerticalStepperF
     // Information about the steps/fields of the form
     private static final int BANK_NAME_STEP_NUM = 0;
     private static final int BRANCH_NAME_STEP_NUM = 1;
-    private static final int ACC_NO_STEP_NUM = 2;
-    private static final int CUSTOMER_ID_STEP_NUM = 3;
-    private static final int PASSWORD_STEP_NUM = 4;
+    private static final int ACCOUNT_TYPE_STEP_NUM = 2;
+    private static final int ACC_NO_STEP_NUM = 3;
+    private static final int CUSTOMER_ID_STEP_NUM = 4;
+    private static final int PASSWORD_STEP_NUM = 5;
 
     private Spinner spinnerBankName;
+    private Spinner spinnerAccType;
     private Spinner spinnerBranchName;
     private EditText customerId;
     private EditText accountNumber;
@@ -71,6 +73,7 @@ public class AddBankAccountFragment extends Fragment implements VerticalStepperF
 
     public String BANK_NAME;
     public String BRANCH_NAME;
+    public String ACCOUNT_TYPE;
     public String ACCOUNT_NUMBER;
     public String CUSTOMER_ID;
     public String PASSSWORD;
@@ -83,6 +86,7 @@ public class AddBankAccountFragment extends Fragment implements VerticalStepperF
 
     ArrayList<BankDetail> bankNameList = new ArrayList<>();
     ArrayList<BankDetail> branchNameList = new ArrayList<>();
+    ArrayList<BankDetail> accTypeList = new ArrayList<>();
     BankDetail bankDetail = new BankDetail();
 
     public enum Single {
@@ -160,6 +164,9 @@ public class AddBankAccountFragment extends Fragment implements VerticalStepperF
             case BRANCH_NAME_STEP_NUM:
                 view = createBranchNameSpinner();
                 break;
+            case ACCOUNT_TYPE_STEP_NUM:
+                view = createAccountTypeSpinner();
+                break;
             case ACC_NO_STEP_NUM:
                 view = createBankAccountNo();
                 break;
@@ -185,10 +192,17 @@ public class AddBankAccountFragment extends Fragment implements VerticalStepperF
                     }
                     break;
                 case BRANCH_NAME_STEP_NUM:
-                    if (ErrorUtills.checkTextNull(BRANCH_NAME)) {
+                    if (ErrorUtills.isSpinnerValid(spinnerBranchName)) {
                         verticalStepperForm.setStepAsCompleted(stepNumber);
                     } else {
                         verticalStepperForm.setActiveStepAsUncompleted(""+mContext.getResources().getString(R.string.error_select_branch_name));
+                    }
+                    break;
+                case ACCOUNT_TYPE_STEP_NUM:
+                    if (ErrorUtills.isSpinnerValid(spinnerAccType)) {
+                        verticalStepperForm.setStepAsCompleted(stepNumber);
+                    } else {
+                        verticalStepperForm.setActiveStepAsUncompleted(""+mContext.getResources().getString(R.string.error_select_acc_type));
                     }
                     break;
                 case ACC_NO_STEP_NUM:
@@ -214,7 +228,7 @@ public class AddBankAccountFragment extends Fragment implements VerticalStepperF
                             Toast.makeText(mContext, "Please agree to T&C", Toast.LENGTH_SHORT).show();
                             verticalStepperForm.setActiveStepAsUncompleted("Please agree to T&C");
                         } else {
-                            verticalStepperForm.setStepSubtitle(stepNumber, "" + PASSSWORD);
+                            verticalStepperForm.setStepSubtitle(stepNumber, "" + AppUtills.replaceChar(PASSSWORD,"*"));
                             verticalStepperForm.setStepAsCompleted(stepNumber);
                         }
                     } else {
@@ -279,6 +293,42 @@ public class AddBankAccountFragment extends Fragment implements VerticalStepperF
         });
         return spinnerBranchName;
     }
+
+
+    private View createAccountTypeSpinner() {
+        spinnerAccType = new Spinner(mContext);
+        BankDetail bankDetail =new BankDetail();
+        bankDetail.setBankAccountType("Please Select");
+        accTypeList.add(0,bankDetail);
+        bankDetail =new BankDetail();
+        bankDetail.setBankAccountType("Checking");
+        accTypeList.add(1,bankDetail);
+        bankDetail =new BankDetail();
+        bankDetail.setBankAccountType("Saving");
+        accTypeList.add(2,bankDetail);
+
+        MyCustomAdapter adapter = new MyCustomAdapter(getActivity(), accTypeList, "Account_Type");
+        spinnerAccType.setAdapter(adapter);
+        spinnerAccType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position > 0) {
+                    ACCOUNT_TYPE = accTypeList.get(position).getBankAccountType();
+                    verticalStepperForm.setStepSubtitle(ACCOUNT_TYPE_STEP_NUM, "" + ACCOUNT_TYPE);
+                    verticalStepperForm.setActiveStepAsCompleted();
+                } else {
+                    verticalStepperForm.setActiveStepAsUncompleted(""+mContext.getResources().getString(R.string.error_select_branch_name));
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        return spinnerAccType;
+    }
+
 
     private View createBankAccountNo() {
         accountNumber = new EditText(mContext);
@@ -358,7 +408,7 @@ public class AddBankAccountFragment extends Fragment implements VerticalStepperF
         password = new EditText(mContext);
         password.setHint(mContext.getResources().getString(R.string.hint_enter_password));
         password.setSingleLine(true);
-        password.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -375,9 +425,10 @@ public class AddBankAccountFragment extends Fragment implements VerticalStepperF
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (ErrorUtills.checkTextMinLength(s.toString(), 8)) {
-                    verticalStepperForm.setStepSubtitle(PASSWORD_STEP_NUM, "" + s.toString());
+
+                    verticalStepperForm.setStepSubtitle(PASSWORD_STEP_NUM, "" + AppUtills.replaceChar(s.toString(),"*"));
                     verticalStepperForm.setStepAsCompleted(PASSWORD_STEP_NUM);
-                    ACCOUNT_NUMBER = s.toString();
+                    PASSSWORD = s.toString();
                 } else {
                     verticalStepperForm.setActiveStepAsUncompleted(""+mContext.getResources().getString(R.string.error_enter_password));
                 }
@@ -487,7 +538,9 @@ public class AddBankAccountFragment extends Fragment implements VerticalStepperF
         try {
             BANK_NAME = bankNameList.get(spinnerBankName.getSelectedItemPosition()).getBankName().trim();
             BRANCH_NAME = branchNameList.get(spinnerBranchName.getSelectedItemPosition()).getDescription().trim();
+            ACCOUNT_TYPE = accTypeList.get(spinnerAccType.getSelectedItemPosition()).getBankAccountType().toString().trim();
             ACCOUNT_NUMBER = accountNumber.getText().toString().trim();
+            ACCOUNT_TYPE = ACCOUNT_TYPE.toUpperCase();
             CUSTOMER_ID = customerId.getText().toString().trim();
             PASSSWORD = password.getText().toString().trim();
         } catch (Exception e) {
@@ -503,12 +556,13 @@ public class AddBankAccountFragment extends Fragment implements VerticalStepperF
 
             AdBeneficiaryDetails adBeneficiaryDetails = new AdBeneficiaryDetails();
             adBeneficiaryDetails.setPassword(PASSSWORD);
+            adBeneficiaryDetails.setBankAccountType(ACCOUNT_TYPE);
             adBeneficiaryDetails.setCustomerId(CUSTOMER_ID);
             adBeneficiaryDetails.setAccountNumber(ACCOUNT_NUMBER);
 
-             User user =  new User();
-             user.setUserid(DataHandler.Single.INSTANCE.getInstance().getInventory().getUserid()+"");
-             BankDetail bankDetail = new BankDetail();
+            User user = new User();
+            user.setUserid(DataHandler.Single.INSTANCE.getInstance().getInventory().getUserid() + "");
+            BankDetail bankDetail = new BankDetail();
             bankDetail.setId(bankNameList.get(spinnerBankName.getSelectedItemPosition()).getId());
             adBeneficiaryDetails.setUser(user);
             adBeneficiaryDetails.setBankDetail(bankDetail);

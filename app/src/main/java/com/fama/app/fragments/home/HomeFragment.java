@@ -13,8 +13,11 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,26 +59,39 @@ import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Currency;
 import java.util.List;
+import java.util.Locale;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeFragment extends Fragment implements HomeListGridAdapter.OnClickListner {
+public class HomeFragment extends Fragment implements View.OnTouchListener, View.OnClickListener, HomeListGridAdapter.OnClickListner {
 
     final int AMOUNT_REFRESH_REQUEST = 1;
     final int GRAPH_REFRESH_REQUEST = 2;
-    private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView myRecyclerView;
-    private GridLayoutManager lLayout;
-    private TextView fama_current_amount, currentDate;
+//    private GridLayoutManager lLayout;
+    private TextView fama_current_amount;
     private Inventory inventory;
     private LineChart mChart;
     private ViewGroup mainView;
     private Typeface tf;
-    Context mContext;
+    private Context mContext;
+    private TextView currentDate;
+
+    private ImageView locationImg;
+    private ImageView rechargeImg;
+    private ImageView transferImg;
+    private ImageView accountImg;
+
+    private LinearLayout location;
+    private LinearLayout transfer;
+    private LinearLayout myAccount;
+    private LinearLayout rechargeWallet;
+
 
     public enum Single {
         INSTANCE;
@@ -129,24 +145,45 @@ public class HomeFragment extends Fragment implements HomeListGridAdapter.OnClic
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
         myRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
 
-        lLayout = new GridLayoutManager(getActivity(), 2);
+//        lLayout = new GridLayoutManager(getActivity(), 2);
 
-        myRecyclerView.setHasFixedSize(true);
-        myRecyclerView.setLayoutManager(lLayout);
+//        myRecyclerView.setHasFixedSize(true);
+//        myRecyclerView.setLayoutManager(lLayout);
 
         fama_current_amount = (TextView) view.findViewById(R.id.fama_current_amount);
 
         currentDate = (TextView) view.findViewById(R.id.currentDate);
-
         currentDate.setText(DateUtils.getMonthNameYear());
+
+        myAccount = (LinearLayout) view.findViewById(R.id.my_account);
+        location = (LinearLayout) view.findViewById(R.id.location);
+        transfer = (LinearLayout) view.findViewById(R.id.transfer);
+        rechargeWallet = (LinearLayout) view.findViewById(R.id.recharge_wallet);
+
+        myAccount.setOnClickListener(this);
+        location.setOnClickListener(this);
+        transfer.setOnClickListener(this);
+        rechargeWallet.setOnClickListener(this);
+
+        myAccount.setOnTouchListener(this);
+        location.setOnTouchListener(this);
+        transfer.setOnTouchListener(this);
+        rechargeWallet.setOnTouchListener(this);
+
+        accountImg = (ImageView) view.findViewById(R.id.account_img);
+        rechargeImg = (ImageView) view.findViewById(R.id.recharge_img);
+        locationImg = (ImageView) view.findViewById(R.id.location_img);
+        transferImg = (ImageView) view.findViewById(R.id.transfer_img);
+
+
+
 
         requestToServer(AMOUNT_REFRESH_REQUEST);
         requestToServer(GRAPH_REFRESH_REQUEST);
-        HomeListGridAdapter rcAdapter = new HomeListGridAdapter(mContext, null, this);
-        myRecyclerView.setAdapter(rcAdapter);
+//        HomeListGridAdapter rcAdapter = new HomeListGridAdapter(mContext, null, this);
+//        myRecyclerView.setAdapter(rcAdapter);
 
 
     }
@@ -155,6 +192,7 @@ public class HomeFragment extends Fragment implements HomeListGridAdapter.OnClic
 
         mChart = (LineChart) view.findViewById(R.id.chart1);
         mChart.setViewPortOffsets(50, 25, 5, -15);
+        mChart.setViewPortOffsets(0, 0,0, 0);
         mChart.setBackgroundColor(getResources().getColor(R.color.themecolor));
         mChart.setDescription("");
         mChart.setTouchEnabled(true);
@@ -172,14 +210,16 @@ public class HomeFragment extends Fragment implements HomeListGridAdapter.OnClic
         mChart.getAxisLeft().setDrawGridLines(false);
         mChart.getXAxis().setDrawGridLines(false);
 
+
         XAxis x = mChart.getXAxis();
-        x.setEnabled(true);
+        x.setEnabled(false);
         x.setYOffset(-10f);
         x.setPosition(XAxis.XAxisPosition.TOP_INSIDE);
         x.setTextColor(Color.WHITE);
         x.setAvoidFirstLastClipping(true);
 
         YAxis y = mChart.getAxisLeft();
+        y.setEnabled(false);
         y.removeAllLimitLines();
         y.setDrawTopYLabelEntry(true);
         y.setDrawLabels(true);
@@ -189,6 +229,7 @@ public class HomeFragment extends Fragment implements HomeListGridAdapter.OnClic
         y.setTextColor(Color.WHITE);
         y.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
         y.setDrawZeroLine(false);
+
 
 
 
@@ -241,8 +282,8 @@ public class HomeFragment extends Fragment implements HomeListGridAdapter.OnClic
             set1.setFillAlpha(70);
 
             set1.setHighLightColor(getResources().getColor(R.color.status_orange_color));
-            set1.setDrawHorizontalHighlightIndicator(true);
-            set1.setDrawVerticalHighlightIndicator(true);
+            set1.setDrawHorizontalHighlightIndicator(false);
+            set1.setDrawVerticalHighlightIndicator(false);
 //            set1.setFillFormatter(new FillFormatter() {
 //                @Override
 //                public float getFillLinePosition(ILineDataSet dataSet, LineDataProvider dataProvider) {
@@ -258,6 +299,47 @@ public class HomeFragment extends Fragment implements HomeListGridAdapter.OnClic
             mChart.setData(data);
             mChart.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.my_account:
+                AppUtills.loadFragment(AccountsFragment.Single.INSTANCE.getInstance(), getActivity(), R.id.container);
+                break;
+            case R.id.recharge_wallet:
+                AppUtills.loadFragment(AddAmountToWalletFragment.Single.INSTANCE.getInstance(), getActivity(), R.id.container);
+                break;
+            case R.id.location:
+                AppUtills.loadFragment(LocationFragment.Single.INSTANCE.getInstance(), getActivity(), R.id.container);
+                break;
+            case R.id.transfer:
+                AppUtills.loadFragment(MoneyTransferFragment.Single.INSTANCE.getInstance(), getActivity(), R.id.container);
+                break;
+        }
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        accountImg.setImageResource(R.drawable.airtime);
+        rechargeImg.setImageResource(R.drawable.deals);
+        locationImg.setImageResource(R.drawable.locations);
+        transferImg.setImageResource(R.drawable.funds_transfer);
+        switch (v.getId()) {
+            case R.id.my_account:
+                accountImg.setImageResource(R.drawable.airtime_selected);
+                break;
+            case R.id.recharge_wallet:
+                rechargeImg.setImageResource(R.drawable.deals_selected);
+                break;
+            case R.id.location:
+                locationImg.setImageResource(R.drawable.locations_selected);
+                break;
+            case R.id.transfer:
+                transferImg.setImageResource(R.drawable.funds_selected);
+                break;
+        }
+        return false;
     }
 
     @Override
@@ -282,11 +364,23 @@ public class HomeFragment extends Fragment implements HomeListGridAdapter.OnClic
     public void refresh() {
         AppUtills.setActionBarTitle("FAMA", ((AppCompatActivity) getActivity()).getSupportActionBar(), getActivity(), false);
         FAMA fama = DataHandler.Single.INSTANCE.getInstance().getFamaWallet();
-        if (fama != null)
-            fama_current_amount.setText("" + fama.getCurrentAmount() + "" + fama.getCurrencyCode());
-        else if (inventory.getFamaWallet() != null)
-            fama_current_amount.setText("" + inventory.getFamaWallet().getCurrentAmount() + "" + inventory.getFamaWallet().getCurrencyCode());
 
+
+        if (fama != null) {
+//            Locale locale=new Locale(fama.getCurrencyCode().toUpperCase());
+//            Locale locale=new Locale("en", "IN");
+//            Currency currency= Currency.getInstance(locale);
+            String symbol = fama.getCurrencyCode();//currency.getSymbol();
+            fama_current_amount.setText(symbol +" "+ fama.getCurrentAmount());
+        }
+        else if (inventory.getFamaWallet() != null){
+//            Locale locale=new Locale("en",inventory.getFamaWallet().getCurrencyCode().toUpperCase());
+//            Locale locale=new Locale("en", "IN");
+//            Currency currency= Currency.getInstance(locale);
+
+            String symbol = inventory.getFamaWallet().getCurrencyCode();//currency.getSymbol();
+            fama_current_amount.setText(symbol +" "+ inventory.getFamaWallet().getCurrentAmount() );
+        }
 
     }
 

@@ -84,7 +84,8 @@ public class BankHistoryListAdapter extends RecyclerView.Adapter<BankHistoryList
 
             if (bankDetailArrayList != null && bankDetailArrayList.size() > 0) {
                 String type = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, "" + bankDetailArrayList.get(position).getTransactionType());
-                type = AppUtills.splitCamelCase(type);
+//                type = AppUtills.splitCamelCase(type);
+                type = AppUtills.splitCamelCase(type)+ "("+bankDetailArrayList.get(position).getCurrency()+")";
                 holder.transactionType.setText(type);
                 holder.lastAmount.setText("Previous Amount : " + bankDetailArrayList.get(position).getPreviousBankAmount());
                 holder.updatedAmount.setText("Updated Amount : " + bankDetailArrayList.get(position).getUpdatedBankAmount());

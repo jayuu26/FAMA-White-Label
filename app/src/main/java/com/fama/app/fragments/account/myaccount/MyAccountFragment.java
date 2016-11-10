@@ -1,18 +1,24 @@
 package com.fama.app.fragments.account.myaccount;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
+import com.fama.app.adapter.commonadaptter.CustomPagerAdapter;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
@@ -37,6 +43,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.R.attr.padding;
+
 public class MyAccountFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, ViewAccountListAdapter.OnItemClickListener {
 
 
@@ -44,9 +52,12 @@ public class MyAccountFragment extends Fragment implements SwipeRefreshLayout.On
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView myRecyclerView;
-
+    ViewPager vpPager;
     private LinearLayoutManager layoutManager;
     private ViewAccountListAdapter viewAccountListAdapter;
+
+
+    CustomPagerAdapter adapterViewPager;
 
     public enum Single {
         INSTANCE;
@@ -92,7 +103,10 @@ public class MyAccountFragment extends Fragment implements SwipeRefreshLayout.On
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
         myRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
 
-        layoutManager = new LinearLayoutManager(getActivity());
+        vpPager = (ViewPager) view.findViewById(R.id.vpPager);
+
+       layoutManager
+                = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         myRecyclerView.setLayoutManager(layoutManager);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
 
@@ -114,7 +128,6 @@ public class MyAccountFragment extends Fragment implements SwipeRefreshLayout.On
                 AppUtills.loadFragment(AddBankAccountFragment.Single.INSTANCE.getInstance(), getActivity(), R.id.container);
             }
         });
-
 
         myRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
             @Override
@@ -139,10 +152,15 @@ public class MyAccountFragment extends Fragment implements SwipeRefreshLayout.On
     }
 
     private void initList(ArrayList<BankDetail> bankDetails) {
+
         swipeRefreshLayout.setRefreshing(false);
         viewAccountListAdapter = new ViewAccountListAdapter(mContext, bankDetails, this);
         myRecyclerView.setAdapter(viewAccountListAdapter);
         swipeRefreshLayout.setRefreshing(false);
+
+//        adapterViewPager = new CustomPagerAdapter(mContext,bankDetailsList);
+//        vpPager.setAdapter(adapterViewPager);
+
     }
 
     @Override
