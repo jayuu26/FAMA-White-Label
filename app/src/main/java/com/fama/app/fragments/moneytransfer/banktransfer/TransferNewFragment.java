@@ -30,6 +30,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.fama.app.daomodel.DataHandler;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
@@ -148,7 +149,8 @@ public class TransferNewFragment extends Fragment implements VerticalStepperForm
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Inventory inventory = InventoryDBHelper.single.INSTANCE.getInstnce().getItemList(getActivity(), "");
+//        Inventory inventory = InventoryDBHelper.single.INSTANCE.getInstnce().getItemList(getActivity(), "");
+        Inventory inventory = DataHandler.Single.INSTANCE.getInstance().getInventory();
         if (inventory != null) {
             loadBankList("" + inventory.getUserid());
         }
@@ -745,12 +747,13 @@ public class TransferNewFragment extends Fragment implements VerticalStepperForm
             AppUtills.showLowBalance(getActivity(), mContext.getResources().getString(R.string.error_wallet_low_balance),false);
             verticalStepperForm.setActiveStepAsUncompleted(mContext.getResources().getString(R.string.error_enter_amount));
         } else {
-            verticalStepperForm.setStepSubtitle(position, "" + transAmount);
+            verticalStepperForm.setStepSubtitle(position, "" + transAmount+currency);
             verticalStepperForm.setStepAsCompleted(position);
         }
     }
 
 
+    String currency;
     public void checkAvailableBalance(int position){
 
         if(accountNoList.get(position).getAccountNumber()!=null){
@@ -765,8 +768,8 @@ public class TransferNewFragment extends Fragment implements VerticalStepperForm
                 verticalStepperForm.setActiveStepAsCompleted();
                 verticalStepperForm.setStepAsCompleted(AVAILABLE_BALANCE_STEP_NUM);
 
-
-                verticalStepperForm.setStepSubtitle(AVAILABLE_BALANCE_STEP_NUM,""+availAmount+" ("+accountNoList.get(position).getCurrencyCode()+")");
+                currency = " ("+accountNoList.get(position).getCurrencyCode()+")";
+                verticalStepperForm.setStepSubtitle(AVAILABLE_BALANCE_STEP_NUM,""+availAmount+currency);
                 verticalStepperForm.goToStep(PERSONLA_PAYEESTEP_NUM, true);
             }
             BALANCE = ""+availAmount;

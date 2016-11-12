@@ -65,6 +65,7 @@ public class AddAmountToWalletFragment extends Fragment implements VerticalStepp
     ArrayList<BankDetail> payeeList = new ArrayList<>();
     BankDetail bankDetail = new BankDetail();
 
+    String currency;
     // Information about the steps/fields of the form
     private static final int SENDER_EMAIL_STEP_NUM = 0;
     private static final int AVAILABLE_BALANCE_STEP_NUM = 3;
@@ -144,6 +145,7 @@ public class AddAmountToWalletFragment extends Fragment implements VerticalStepp
         super.onViewCreated(view, savedInstanceState);
           inventory = DataHandler.Single.INSTANCE.getInstance().getInventory();//InventoryDBHelper.single.INSTANCE.getInstnce().getItemList(getActivity(), "");
         SENDER_EMAIL = inventory.getEmail();
+        currency = DataHandler.Single.INSTANCE.getInstance().getFamaWallet().getCurrencyCode();
 
         initializeActivity(view);
     }
@@ -236,7 +238,7 @@ public class AddAmountToWalletFragment extends Fragment implements VerticalStepp
                 break;
             case AMOUNT_STEP_NUM:
                 if (ErrorUtills.checkTextMinLength(AMOUNT, 16)) {
-                    verticalStepperForm.setStepSubtitle(stepNumber, "" + AMOUNT);
+                    verticalStepperForm.setStepSubtitle(stepNumber, "" + AMOUNT+" ("+currency+")");
                     verticalStepperForm.setStepAsCompleted(stepNumber);
                 } else {
 
@@ -402,7 +404,7 @@ public class AddAmountToWalletFragment extends Fragment implements VerticalStepp
                 AMOUNT = s.toString();
 
                 if (ErrorUtills.checkTextNull(s.toString())) {
-                    verticalStepperForm.setStepSubtitle(AMOUNT_STEP_NUM, "" + s.toString());
+                    verticalStepperForm.setStepSubtitle(AMOUNT_STEP_NUM, "" + s.toString()+" ("+currency+")");
                     verticalStepperForm.setStepAsCompleted(AMOUNT_STEP_NUM);
                 } else {
                     verticalStepperForm.setActiveStepAsUncompleted(

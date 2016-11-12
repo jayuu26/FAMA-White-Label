@@ -80,32 +80,32 @@ public class AddBeneficiaryFragment extends Fragment implements VerticalStepperF
 
     // BANK_NAME_STEP
     private Spinner spinnerAccNo;
-    public  String ACC_NUMBER;
+    private String ACC_NUMBER;
     // BRANCH_NAME
     private EditText beneficiaryName;
-    public  String BENEFICIARY_NAME;
+    private String BENEFICIARY_NAME;
     // BENEFICIARY_ACC_NO
     private EditText beneficiaryAccNo;
-    public  String BENEFICIARY_ACCOUNT_NUMBER;
+    public String BENEFICIARY_ACCOUNT_NUMBER;
     // BENEFICIARY_ACC_NO_CONFIRM
     private EditText beneficiaryAccNoConfirm;
-    public  String BENEFICIARY_ACCOUNT_NUMBER_CONFIRM;
+    private String BENEFICIARY_ACCOUNT_NUMBER_CONFIRM;
     // PASSWORD
     private EditText bankCode;
-    public  String BANK_CODE;
+    private String BANK_CODE;
 
     // Time step
     private TextView dateTimeTextView;
     private TimePickerDialog timePicker;
     private DatePickerDialog datePicker;
 
-    public static final String STATE_DAY = "day";
-    public static final String STATE_MONTH = "month";
-    public static final String STATE_YEAR = "year";
-
-    private Pair<Integer, Integer> time;
-    public static final String STATE_TIME_HOUR = "time_hour";
-    public static final String STATE_TIME_MINUTES = "time_minutes";
+//    public static final String STATE_DAY = "day";
+//    public static final String STATE_MONTH = "month";
+//    public static final String STATE_YEAR = "year";
+//
+//    private Pair<Integer, Integer> time;
+//    public static final String STATE_TIME_HOUR = "time_hour";
+//    public static final String STATE_TIME_MINUTES = "time_minutes";
 
     private boolean confirmBack = true;
     private VerticalStepperFormLayout verticalStepperForm;
@@ -151,19 +151,20 @@ public class AddBeneficiaryFragment extends Fragment implements VerticalStepperF
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Inventory inventory = InventoryDBHelper.single.INSTANCE.getInstnce().getItemList(getActivity(),"");
-        if(inventory!=null){
-            loadBankList(""+inventory.getUserid());
+//        Inventory inventory = InventoryDBHelper.single.INSTANCE.getInstnce().getItemList(getActivity(),"");
+        Inventory inventory = DataHandler.Single.INSTANCE.getInstance().getInventory();
+        if (inventory != null) {
+            loadBankList("" + inventory.getUserid());
         }
         initializeActivity(view);
     }
 
     private void initializeActivity(View view) {
 
-        TextView termsCondition =(TextView)view.findViewById(R.id.termsCondition);
+        TextView termsCondition = (TextView) view.findViewById(R.id.termsCondition);
         checkTerms = (CheckBox) view.findViewById(R.id.checkTermsCondition);
 
-        AppUtills.setUnderLine(termsCondition,"Terms & Condition");
+        AppUtills.setUnderLine(termsCondition, "Terms & Condition");
 
         int colorPrimary = ContextCompat.getColor(mContext, R.color.colorPrimary);
         int colorPrimaryDark = ContextCompat.getColor(mContext, R.color.colorPrimaryDark);
@@ -218,7 +219,7 @@ public class AddBeneficiaryFragment extends Fragment implements VerticalStepperF
                 if (ErrorUtills.isSpinnerValid(spinnerAccNo)) {
 //                    verticalStepperForm.setStepSubtitle(stepNumber, "" + SENDER_EMAIL);
                     verticalStepperForm.setActiveStepAsCompleted();
-                }else{
+                } else {
                     verticalStepperForm.setActiveStepAsUncompleted(mContext.getResources().getString(R.string.error_select_acc_no));
                 }
                 break;
@@ -226,7 +227,7 @@ public class AddBeneficiaryFragment extends Fragment implements VerticalStepperF
                 if (ErrorUtills.checkTextNull(BENEFICIARY_NAME)) {
                     verticalStepperForm.setStepSubtitle(stepNumber, "" + BENEFICIARY_NAME);
                     verticalStepperForm.setStepAsCompleted(stepNumber);
-                }else{
+                } else {
                     verticalStepperForm.setActiveStepAsUncompleted(mContext.getResources().getString(R.string.error_enter_beneficiary_name));
                 }
                 break;
@@ -234,7 +235,7 @@ public class AddBeneficiaryFragment extends Fragment implements VerticalStepperF
                 if (ErrorUtills.checkTextMinLength(BENEFICIARY_ACCOUNT_NUMBER, 16)) {
                     verticalStepperForm.setStepSubtitle(stepNumber, "" + BENEFICIARY_ACCOUNT_NUMBER);
                     verticalStepperForm.setStepAsCompleted(stepNumber);
-                }else{
+                } else {
                     verticalStepperForm.setActiveStepAsUncompleted(mContext.getResources().getString(R.string.error_enter_beneficiary_acc_no));
                 }
                 break;
@@ -242,34 +243,36 @@ public class AddBeneficiaryFragment extends Fragment implements VerticalStepperF
                 if (ErrorUtills.checkTextMinLength(BENEFICIARY_ACCOUNT_NUMBER_CONFIRM, 16)) {
                     verticalStepperForm.setStepSubtitle(stepNumber, "" + BENEFICIARY_ACCOUNT_NUMBER_CONFIRM);
                     verticalStepperForm.setStepAsCompleted(stepNumber);
-                }else{
+                } else {
 
                     verticalStepperForm.setActiveStepAsUncompleted(mContext.getResources().getString(R.string.error_reenter_beneficiary_acc_no));
                 }
                 break;
             case BANK_CODE_STEP_NUM:
                 if (ErrorUtills.checkTextMinLength(BANK_CODE, 6)) {
-                    if(!checkTerms.isChecked()){
+                    if (!checkTerms.isChecked()) {
                         Toast.makeText(mContext, "Please agree to T&C", Toast.LENGTH_SHORT).show();
                         verticalStepperForm.setActiveStepAsUncompleted("Please agree to T&C");
-                    }else {
+                    } else {
                         verticalStepperForm.setStepSubtitle(stepNumber, "" + BANK_CODE);
                         verticalStepperForm.setStepAsCompleted(stepNumber);
                     }
-                }else{
+                } else {
                     verticalStepperForm.setActiveStepAsUncompleted(mContext.getResources().getString(R.string.error_enter_bank_code));
                 }
                 break;
         }
     }
 
-    private void initDataVar(){
+    private void initDataVar() {
         try {
-            ACC_NUMBER = accountNoList.get(spinnerAccNo.getSelectedItemPosition()).getAccountNumber().trim();
-            BENEFICIARY_NAME = beneficiaryName.getText().toString().trim();
-            BENEFICIARY_ACCOUNT_NUMBER = beneficiaryAccNo.getText().toString().trim();
-            BENEFICIARY_ACCOUNT_NUMBER_CONFIRM = beneficiaryAccNoConfirm.getText().toString().trim();
-            BANK_CODE = bankCode.getText().toString().trim();
+            if (accountNoList != null && accountNoList.size() > 0) {
+                ACC_NUMBER = accountNoList.get(spinnerAccNo.getSelectedItemPosition()).getAccountNumber().trim();
+                BENEFICIARY_NAME = beneficiaryName.getText().toString().trim();
+                BENEFICIARY_ACCOUNT_NUMBER = beneficiaryAccNo.getText().toString().trim();
+                BENEFICIARY_ACCOUNT_NUMBER_CONFIRM = beneficiaryAccNoConfirm.getText().toString().trim();
+                BANK_CODE = bankCode.getText().toString().trim();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -288,13 +291,13 @@ public class AddBeneficiaryFragment extends Fragment implements VerticalStepperF
 
 
             User user = new User();
-            user.setUserid(DataHandler.Single.INSTANCE.getInstance().getInventory().getUserid()+"");
+            user.setUserid(DataHandler.Single.INSTANCE.getInstance().getInventory().getUserid() + "");
             AccountDetail accountDetail = new AccountDetail();
-            accountDetail.setId(accountNoList.get(spinnerAccNo.getSelectedItemPosition()).getId()+"");
+            accountDetail.setId(accountNoList.get(spinnerAccNo.getSelectedItemPosition()).getId() + "");
             adBeneficiaryDetails.setUser(user);
             adBeneficiaryDetails.setAccountDetail(accountDetail);
             adBeneficiaryDetails.setIfscCode(BANK_CODE);
-            System.out.println(" FInal JSON "+ new Gson().toJson(adBeneficiaryDetails));
+            System.out.println(" FInal JSON " + new Gson().toJson(adBeneficiaryDetails));
 
             confirmAdd(adBeneficiaryDetails);
         } catch (Exception e) {
@@ -334,7 +337,7 @@ public class AddBeneficiaryFragment extends Fragment implements VerticalStepperF
         beneficiaryName = new EditText(mContext);
         beneficiaryName.setHint(R.string.hint_enter_beneficiary_name);
         beneficiaryName.setSingleLine(true);
-        ErrorUtills.setEditTextLimit(beneficiaryName,20);
+        ErrorUtills.setEditTextLimit(beneficiaryName, 20);
 
         beneficiaryName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -373,7 +376,7 @@ public class AddBeneficiaryFragment extends Fragment implements VerticalStepperF
                 return false;
             }
         });
-        ErrorUtills.setEditTextLimit(beneficiaryAccNo,16);
+        ErrorUtills.setEditTextLimit(beneficiaryAccNo, 16);
         beneficiaryAccNo.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -381,7 +384,7 @@ public class AddBeneficiaryFragment extends Fragment implements VerticalStepperF
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (ErrorUtills.checkTextMinMaxLength(s.toString(),16)) {
+                if (ErrorUtills.checkTextMinMaxLength(s.toString(), 16)) {
                     verticalStepperForm.setStepSubtitle(BENEFICIARY_ACC_NO_STEP_NUM, "" + s.toString());
                     verticalStepperForm.setStepAsCompleted(BENEFICIARY_ACC_NO_STEP_NUM);
                     BENEFICIARY_ACCOUNT_NUMBER = s.toString();
@@ -410,7 +413,7 @@ public class AddBeneficiaryFragment extends Fragment implements VerticalStepperF
                 return false;
             }
         });
-        ErrorUtills.setEditTextLimit(beneficiaryAccNoConfirm,16);
+        ErrorUtills.setEditTextLimit(beneficiaryAccNoConfirm, 16);
         beneficiaryAccNoConfirm.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -421,11 +424,11 @@ public class AddBeneficiaryFragment extends Fragment implements VerticalStepperF
 
                 BENEFICIARY_ACCOUNT_NUMBER_CONFIRM = s.toString();
 
-                if (ErrorUtills.checkTextMinMaxLength(s.toString(),16)) {
-                    if(BENEFICIARY_ACCOUNT_NUMBER.equalsIgnoreCase(BENEFICIARY_ACCOUNT_NUMBER_CONFIRM)) {
+                if (ErrorUtills.checkTextMinMaxLength(s.toString(), 16)) {
+                    if (BENEFICIARY_ACCOUNT_NUMBER.equalsIgnoreCase(BENEFICIARY_ACCOUNT_NUMBER_CONFIRM)) {
                         verticalStepperForm.setStepSubtitle(BENEFICIARY_ACC_NO_CONFIRM_STEP_NUM, "" + s.toString());
                         verticalStepperForm.setStepAsCompleted(BENEFICIARY_ACC_NO_CONFIRM_STEP_NUM);
-                    }else{
+                    } else {
                         verticalStepperForm.setActiveStepAsUncompleted(mContext.getResources().getString(R.string.error_account_mismatch));
                     }
                 } else {
@@ -454,7 +457,7 @@ public class AddBeneficiaryFragment extends Fragment implements VerticalStepperF
                 return false;
             }
         });
-        ErrorUtills.setEditTextLimit(bankCode,6);
+        ErrorUtills.setEditTextLimit(bankCode, 6);
         bankCode.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -462,7 +465,7 @@ public class AddBeneficiaryFragment extends Fragment implements VerticalStepperF
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (ErrorUtills.checkTextMinMaxLength(s.toString(),6)) {
+                if (ErrorUtills.checkTextMinMaxLength(s.toString(), 6)) {
                     verticalStepperForm.setStepSubtitle(BANK_CODE_STEP_NUM, "" + s.toString());
                     verticalStepperForm.setStepAsCompleted(BANK_CODE_STEP_NUM);
                     BANK_CODE = s.toString();
@@ -535,13 +538,13 @@ public class AddBeneficiaryFragment extends Fragment implements VerticalStepperF
     }
 
     private void setTime(int hour, int minutes) {
-        time = new Pair<>(hour, minutes);
-        String hourString = ((time.first > 9) ?
-                String.valueOf(time.first) : ("0" + time.first));
-        String minutesString = ((time.second > 9) ?
-                String.valueOf(time.second) : ("0" + time.second));
-        String time = hourString + ":" + minutesString;
-        dateTimeTextView.setText(time);
+//        time = new Pair<>(hour, minutes);
+//        String hourString = ((time.first > 9) ?
+//                String.valueOf(time.first) : ("0" + time.first));
+//        String minutesString = ((time.second > 9) ?
+//                String.valueOf(time.second) : ("0" + time.second));
+//        String time = hourString + ":" + minutesString;
+//        dateTimeTextView.setText(time);
     }
 
 
@@ -705,7 +708,7 @@ public class AddBeneficiaryFragment extends Fragment implements VerticalStepperF
                                     verticalStepperForm.goToPreviousStep();
                                 }
                             }
-                        }else{
+                        } else {
                             Toast.makeText(mContext, "" + MessageConstant.GENERIC_ERROR, Toast.LENGTH_SHORT).show();
                             verticalStepperForm.goToPreviousStep();
                         }

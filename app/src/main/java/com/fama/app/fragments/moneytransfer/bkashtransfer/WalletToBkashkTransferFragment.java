@@ -698,11 +698,12 @@ public class WalletToBkashkTransferFragment extends Fragment implements Vertical
             AppUtills.showLowBalance(getActivity(), mContext.getResources().getString(R.string.error_wallet_low_balance),false);
             verticalStepperForm.setActiveStepAsUncompleted(mContext.getResources().getString(R.string.error_enter_amount));
         } else {
-            verticalStepperForm.setStepSubtitle(position, "" + transAmount);
+            verticalStepperForm.setStepSubtitle(position, "" + transAmount+currency);
             verticalStepperForm.setStepAsCompleted(position);
         }
     }
 
+    String currency;
     public void checkAvailableBalance() {
 
         FAMA fama = DataHandler.Single.INSTANCE.getInstance().getFamaWallet();
@@ -718,7 +719,8 @@ public class WalletToBkashkTransferFragment extends Fragment implements Vertical
 
                 availBalance.setText(""+balanceAmount);
                 verticalStepperForm.setStepAsCompleted(AVAILABLE_BALANCE_STEP_NUM);
-                verticalStepperForm.setStepSubtitle(AVAILABLE_BALANCE_STEP_NUM,""+ availAmount+" ("+fama.getCurrencyCode()+")");
+                currency = " ("+fama.getCurrencyCode()+")";
+                verticalStepperForm.setStepSubtitle(AVAILABLE_BALANCE_STEP_NUM,""+ availAmount+currency);
                 verticalStepperForm.goToNextStep();
                 BALANCE = ""+availAmount;
             }

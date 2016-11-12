@@ -216,7 +216,7 @@
     <string-array name="steps_add_account">
         <item>My Bank Name</item>
         <item>My Branch Name</item>
-        <item>Account Type</item>
+        <item>Select Account Type</item>
         <item>My Account Number</item>
         <item>My Customer Id</item>
         <item>My Password</item>

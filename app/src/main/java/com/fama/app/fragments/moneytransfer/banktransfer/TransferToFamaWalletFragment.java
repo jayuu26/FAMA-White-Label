@@ -30,6 +30,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.fama.app.daomodel.DataHandler;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
@@ -148,7 +149,8 @@ public class TransferToFamaWalletFragment extends Fragment implements VerticalSt
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Inventory inventory = InventoryDBHelper.single.INSTANCE.getInstnce().getItemList(getActivity(), "");
+//        Inventory inventory = InventoryDBHelper.single.INSTANCE.getInstnce().getItemList(getActivity(), "");
+        Inventory inventory = DataHandler.Single.INSTANCE.getInstance().getInventory();
         if (inventory != null) {
             loadBankList("" + inventory.getUserid());
         }
@@ -267,11 +269,13 @@ public class TransferToFamaWalletFragment extends Fragment implements VerticalSt
 
     private void initDataVar() {
         try {
-            ACC_NUMBER = accountNoList.get(spinnerAccNo.getSelectedItemPosition()).getAccountNumber().trim();
-            BALANCE = balance.getText().toString().trim();
-            RECEIVER_EMAIL = recieverEmail.getText().toString().trim();
-            AMOUNT = amount.getText().toString().trim();
-            REMARK = remark.getText().toString().trim();
+            if(accountNoList!=null && accountNoList.size()>0) {
+                ACC_NUMBER = accountNoList.get(spinnerAccNo.getSelectedItemPosition()).getAccountNumber().trim();
+                BALANCE = balance.getText().toString().trim();
+                RECEIVER_EMAIL = recieverEmail.getText().toString().trim();
+                AMOUNT = amount.getText().toString().trim();
+                REMARK = remark.getText().toString().trim();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -749,10 +753,12 @@ public class TransferToFamaWalletFragment extends Fragment implements VerticalSt
             AppUtills.showLowBalance(getActivity(), mContext.getResources().getString(R.string.error_wallet_low_balance), false);
             verticalStepperForm.setActiveStepAsUncompleted(mContext.getResources().getString(R.string.error_enter_amount));
         } else {
-            verticalStepperForm.setStepSubtitle(position, "" + transAmount);
+            verticalStepperForm.setStepSubtitle(position, "" + transAmount+currency);
             verticalStepperForm.setStepAsCompleted(position);
         }
     }
+
+    String currency;
 
     public void checkAvailableBalance(int position) {
 
@@ -767,7 +773,8 @@ public class TransferToFamaWalletFragment extends Fragment implements VerticalSt
                 verticalStepperForm.setActiveStepAsCompleted();
                 balance.setText("" + accountNoList.get(position).getBalance());
                 verticalStepperForm.setStepAsCompleted(AVAILABLE_BALANCE_STEP_NUM);
-                verticalStepperForm.setStepSubtitle(AVAILABLE_BALANCE_STEP_NUM, "" + availAmount+" ("+accountNoList.get(position).getCurrencyCode()+")");
+                currency = " ("+accountNoList.get(position).getCurrencyCode()+")";
+                verticalStepperForm.setStepSubtitle(AVAILABLE_BALANCE_STEP_NUM, "" + availAmount+currency);
                 verticalStepperForm.goToStep(RECEIVER_EMAIL_STEP_NUM, true);
 
             }

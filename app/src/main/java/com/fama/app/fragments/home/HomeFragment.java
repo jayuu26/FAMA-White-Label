@@ -144,7 +144,7 @@ public class HomeFragment extends Fragment implements View.OnTouchListener, View
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        System.out.println(" Home onViewCreated ");
         myRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
 
 //        lLayout = new GridLayoutManager(getActivity(), 2);
@@ -191,8 +191,8 @@ public class HomeFragment extends Fragment implements View.OnTouchListener, View
     private void initGraph(List<GraphHistory> graphHistoryArrayList, View view) {
 
         mChart = (LineChart) view.findViewById(R.id.chart1);
-        mChart.setViewPortOffsets(50, 25, 5, -15);
-        mChart.setViewPortOffsets(0, 0,0, 0);
+//        mChart.setViewPortOffsets(50, 25, 5, -15);
+        mChart.setViewPortOffsets(10, 0,10, 0);
         mChart.setBackgroundColor(getResources().getColor(R.color.themecolor));
         mChart.setDescription("");
         mChart.setTouchEnabled(true);
@@ -247,7 +247,7 @@ public class HomeFragment extends Fragment implements View.OnTouchListener, View
 
         int i = 0;
         for (GraphHistory count : graphHistoryArrayList) {
-            System.out.println("onResponse " + new Gson().toJson(count));
+//            System.out.println("onResponse " + new Gson().toJson(count));
             graphXVals.add(DateUtils.getDate(count.getDate()));
             float amount = Float.parseFloat(count.getAmount());
             graphYVals.add(new Entry(amount, i));
@@ -418,6 +418,7 @@ public class HomeFragment extends Fragment implements View.OnTouchListener, View
                                         try {
                                             FAMA famaWallet = new Gson().fromJson(json, FAMA.class);
                                             DataHandler.Single.INSTANCE.getInstance().setFamaWallet(famaWallet);
+                                            refresh();
                                         } catch (Exception e) {
                                             e.printStackTrace();
                                             Toast.makeText(mContext, "" + MessageConstant.GENERIC_ERROR, Toast.LENGTH_SHORT).show();

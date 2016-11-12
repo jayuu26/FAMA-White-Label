@@ -30,6 +30,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.fama.app.daomodel.DataHandler;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
@@ -148,7 +149,8 @@ public class BanknToBkashFragment extends Fragment implements VerticalStepperFor
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Inventory inventory = InventoryDBHelper.single.INSTANCE.getInstnce().getItemList(getActivity(), "");
+//        Inventory inventory = InventoryDBHelper.single.INSTANCE.getInstnce().getItemList(getActivity(), "");
+        Inventory inventory = DataHandler.Single.INSTANCE.getInstance().getInventory();
         if (inventory != null) {
             loadBankList("" + inventory.getUserid());
         }

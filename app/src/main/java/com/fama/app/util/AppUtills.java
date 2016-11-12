@@ -377,6 +377,8 @@ public class AppUtills {
 
                 ImageView fama_icon = (ImageView) toolbar.findViewById(R.id.fama_icon);
                 fama_icon.setVisibility(View.GONE);
+                ImageView exit_icon = (ImageView) toolbar.findViewById(R.id.exit_icon);
+                exit_icon.setVisibility(View.GONE);
                 ImageView icon = (ImageView) toolbar.findViewById(R.id.icon);
                 icon.setVisibility(View.VISIBLE);
                 icon.setOnClickListener(new View.OnClickListener() {
@@ -409,6 +411,9 @@ public class AppUtills {
                 icon.setVisibility(View.GONE);
                 ImageView fama_icon = (ImageView) toolbar.findViewById(R.id.fama_icon);
                 fama_icon.setVisibility(View.GONE);
+                ImageView exit_icon = (ImageView) toolbar.findViewById(R.id.exit_icon);
+                exit_icon.setVisibility(View.GONE);
+
 
                 TextView heading = (TextView) toolbar.findViewById(R.id.action_heading);
                 TextView sub_heading = (TextView) toolbar.findViewById(R.id.sub_heading);
@@ -416,11 +421,19 @@ public class AppUtills {
                     actionBar.setIcon(null);
                     icon.setVisibility(View.GONE);
                     fama_icon.setVisibility(View.VISIBLE);
+                    exit_icon.setVisibility(View.VISIBLE);
                     heading.setVisibility(View.GONE);
                 }else {
                     heading.setVisibility(View.VISIBLE);
                     heading.setText("  " + title.trim());
                 }
+                exit_icon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AppUtills.showExitPopUp(activity, activity.getResources().getString(R.string.exit_app));
+                    }
+                });
+
             } catch (Exception e) {
                 e.printStackTrace();
             }

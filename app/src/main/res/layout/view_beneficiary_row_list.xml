@@ -65,7 +65,7 @@
                     android:layout_marginTop="5dp"
                     android:text="XXXXX"
                     android:textColor="@color/list_item_text_color"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
             </LinearLayout>
 
@@ -95,7 +95,7 @@
                     android:layout_marginTop="5dp"
                     android:text="XXXXXX"
                     android:textColor="@color/list_item_text_color"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
             </LinearLayout>
 
@@ -134,7 +134,7 @@
                     android:layout_marginTop="5dp"
                     android:text="XXXXX"
                     android:textColor="@color/list_item_text_color"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
             </LinearLayout>
 
@@ -165,7 +165,7 @@
                     android:layout_marginTop="5dp"
                     android:text="XXXXX"
                     android:textColor="@color/list_item_text_color"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
             </LinearLayout>
         </LinearLayout>
